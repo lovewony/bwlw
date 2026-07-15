@@ -560,17 +560,17 @@
         <p style="font-size:13px;color:var(--ink-soft);margin:0;">쇼핑하며 알아두면 좋은 육아 정보를 모았어요. 곧 채워질 거예요!</p>
       </div>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">
-        <article style="background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;">
-          <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#EDF3EC,#CFE3D0);display:flex;align-items:center;justify-content:center;font-size:46px;">🍼</div>
-          <div style="padding:10px 12px 13px;"><h3 style="font-size:13.5px;font-weight:600;margin:0 0 3px;color:var(--ink);line-height:1.35;">월령별 꼭 필요한 준비물</h3><p style="font-size:11.5px;color:var(--ink-faint);margin:0;">카드뉴스 · 곧 공개</p></div>
-        </article>
+        <a href="https://bwlw.kr/tips/bunyu-dange.html" style="text-decoration:none;color:inherit;"><article style="background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer;transition:.15s;" onmouseover="this.style.boxShadow='0 4px 14px rgba(0,0,0,.08)'" onmouseout="this.style.boxShadow='none'">
+          <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#E1EFFB,#C7DFF5);display:flex;align-items:center;justify-content:center;font-size:46px;">🍼</div>
+          <div style="padding:10px 12px 13px;"><h3 style="font-size:13.5px;font-weight:600;margin:0 0 3px;color:var(--ink);line-height:1.35;">분유 단계 가이드</h3><p style="font-size:11.5px;color:var(--green-deep);margin:0;font-weight:600;">가이드 보기 →</p></div>
+        </article></a>
         <article style="background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;">
           <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#F7EFDB,#EED9A8);display:flex;align-items:center;justify-content:center;font-size:46px;">💳</div>
           <div style="padding:10px 12px 13px;"><h3 style="font-size:13.5px;font-weight:600;margin:0 0 3px;color:var(--ink);line-height:1.35;">카드사별 알뜰 쇼핑 팁</h3><p style="font-size:11.5px;color:var(--ink-faint);margin:0;">카드뉴스 · 곧 공개</p></div>
         </article>
-        <a href="https://bwlw.kr/tips/gijeogwi-sizes.html" style="text-decoration:none;color:inherit;"><article style="background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer;transition:.15s;" onmouseover="this.style.boxShadow='0 4px 14px rgba(0,0,0,.08)'" onmouseout="this.style.boxShadow='none'">
+        <a href="https://bwlw.kr/tips/gijeogwi-size.html" style="text-decoration:none;color:inherit;"><article style="background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer;transition:.15s;" onmouseover="this.style.boxShadow='0 4px 14px rgba(0,0,0,.08)'" onmouseout="this.style.boxShadow='none'">
           <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#FBE3DC,#F3C3B4);display:flex;align-items:center;justify-content:center;font-size:46px;">🧷</div>
-          <div style="padding:10px 12px 13px;"><h3 style="font-size:13.5px;font-weight:600;margin:0 0 3px;color:var(--ink);line-height:1.35;">기저귀·분유 사이즈 표</h3><p style="font-size:11.5px;color:var(--green-deep);margin:0;font-weight:600;">가이드 보기 →</p></div>
+          <div style="padding:10px 12px 13px;"><h3 style="font-size:13.5px;font-weight:600;margin:0 0 3px;color:var(--ink);line-height:1.35;">기저귀 사이즈 가이드</h3><p style="font-size:11.5px;color:var(--green-deep);margin:0;font-weight:600;">가이드 보기 →</p></div>
         </article></a>
         <article style="background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;">
           <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#EDF1FC,#CBD8F5);display:flex;align-items:center;justify-content:center;font-size:46px;">🌙</div>
@@ -1408,6 +1408,25 @@
   loadEvents();
   loadSingles();
   loadNotices();
+
+  // 외부 링크(?q=기저귀)로 들어오면 자동 검색 + 오늘의 할인딜 탭으로 이동
+  (function () {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var qv = params.get("q");
+      if (qv) {
+        var box = document.getElementById("q");
+        if (box) box.value = qv;
+        state.q = qv.trim();
+        state.page = 1;
+        render();
+        var lt = document.querySelector('.tab[data-tab="live"]');
+        if (lt) lt.click();
+        var anchor = document.getElementById("deals");
+        if (anchor) setTimeout(function () { anchor.scrollIntoView({ behavior: "smooth", block: "start" }); }, 300);
+      }
+    } catch (e) {}
+  })();
 </script>
 <script>
   (function () {
