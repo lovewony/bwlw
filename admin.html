@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>BWLW 관리자</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet" />
+<style>
+  :root {
+    --green: #2E6B4D; --green-deep: #24543D; --green-wash: #EDF3EC;
+    --ink: #1F1C16; --ink-soft: #5C564A; --ink-faint: #9A927C;
+    --line: #E8E0CD; --line-strong: #DED5C0; --paper: #FBF7EC; --card: #FFFFFF;
+    --coral: #B23A20;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--paper); color: var(--ink); font-family: "Pretendard", -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+  header { background: var(--green); color: #fff; padding: 16px 20px; font-size: 18px; font-weight: 700; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 20px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px; margin-bottom: 16px; }
+  .card h2 { font-size: 16px; margin-bottom: 12px; color: var(--ink); }
+  textarea { width: 100%; height: 190px; padding: 13px; border: 1px solid var(--line-strong); border-radius: 12px; resize: vertical; font-family: inherit; font-size: 14px; line-height: 1.6; outline: none; }
+  textarea:focus, input:focus, select:focus { border-color: var(--green); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .full { grid-column: 1 / -1; }
+  label { display: block; font-size: 12.5px; font-weight: 600; color: var(--ink-soft); margin-bottom: 5px; }
+  input, select { width: 100%; padding: 11px 12px; border: 1px solid var(--line-strong); border-radius: 10px; font-family: inherit; font-size: 14px; outline: none; background: #fff; }
+  .actions { display: flex; gap: 9px; margin-top: 16px; }
+  .actions button { flex: 1; padding: 13px; border: 0; border-radius: 11px; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 14px; }
+  .btn-green { background: var(--green); color: #fff; }
+  .btn-green:hover { background: var(--green-deep); }
+  .btn-ghost { background: var(--green-wash); color: var(--green-deep); }
+  .hint { font-size: 12px; color: var(--ink-faint); margin-top: 9px; line-height: 1.6; }
+
+  .tagpick-chip { border: 1px solid var(--line-strong); background: #fff; color: var(--ink-soft); font-family: inherit; font-size: 12.5px; padding: 6px 11px; border-radius: 18px; cursor: pointer; }
+  .tagpick-chip[aria-pressed="true"] { background: var(--green); border-color: var(--green); color: #fff; font-weight: 600; }
+
+  .preview { border: 2px dashed var(--line-strong); border-radius: 14px; padding: 16px; margin-top: 14px; }
+  .pv-mall { display: inline-flex; align-items: center; gap: 5px; background: var(--green-wash); color: var(--green-deep); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+  .pv-title { font-size: 15px; font-weight: 600; margin: 10px 0 6px; line-height: 1.4; }
+  .pv-price { font-size: 24px; font-weight: 800; color: var(--coral); }
+  .pv-was { font-size: 13px; color: var(--ink-faint); text-decoration: line-through; margin-left: 7px; font-weight: 500; }
+  .pv-card { display: inline-block; margin-top: 8px; font-size: 12px; color: #3A5BC7; background: #EDF1FC; border: 1px solid #DCE4F7; padding: 4px 9px; border-radius: 8px; }
+
+  /* 잠금 화면 */
+  .lock { position: fixed; inset: 0; background: var(--paper); display: flex; align-items: center; justify-content: center; z-index: 50; padding: 20px; }
+  .lock-box { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 26px; max-width: 320px; width: 100%; text-align: center; }
+  .lock-box h1 { font-size: 17px; margin-bottom: 5px; }
+  .lock-box p { font-size: 13px; color: var(--ink-soft); margin-bottom: 16px; }
+  .lock-box input { margin-bottom: 10px; text-align: center; }
+  .lock-box button { width: 100%; padding: 12px; border: 0; border-radius: 10px; background: var(--green); color: #fff; font-family: inherit; font-weight: 700; cursor: pointer; }
+  .lock-err { color: var(--coral); font-size: 12.5px; margin-top: 9px; min-height: 16px; }
+
+  .toast { position: fixed; left: 50%; bottom: 30px; transform: translateX(-50%); background: var(--green); color: #fff; font-size: 14px; font-weight: 600; padding: 12px 20px; border-radius: 12px; opacity: 0; transition: opacity .2s; z-index: 60; }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="lock" id="lock">
+  <div class="lock-box">
+    <h1>🌱 BWLW 관리자</h1>
+    <p>비밀번호를 입력해 주세요</p>
+    <input id="pw" type="password" placeholder="비밀번호" autocomplete="current-password" />
+    <button id="pwBtn" type="button">들어가기</button>
+    <div class="lock-err" id="pwErr"></div>
+  </div>
+</div>
+
+<header>🌱 BWLW 관리자 · 타임딜 등록</header>
+
+<div class="wrap">
+
+  <div class="card">
+    <h2>① 톡방 문구 붙여넣기</h2>
+    <textarea id="rawText" placeholder="[쿠팡]&#10;하기스 맥스드라이 팬티 4팩&#10;39,900원 (정가 59,000원)&#10;삼성카드 7% 추가할인&#10;https://link.coupang.com/..."></textarea>
+    <div class="actions">
+      <button class="btn-green" id="parseBtn" type="button">자동 분석</button>
+      <button class="btn-ghost" id="clearBtn" type="button">초기화</button>
+    </div>
+    <p class="hint">단톡방 문구를 그대로 붙여넣고 "자동 분석"을 누르세요. 상품명·가격·링크를 알아서 뽑아드려요.</p>
+  </div>
+
+  <div class="card">
+    <h2>② 확인 · 수정</h2>
+    <div class="grid2">
+      <div>
+        <label>쇼핑몰</label>
+        <select id="mall">
+          <option value="">선택</option>
+          <option value="coupang">쿠팡</option>
+          <option value="gmarket">지마켓</option>
+          <option value="11st">11번가</option>
+          <option value="ohou">오늘의집</option>
+          <option value="lotteon">롯데온</option>
+          <option value="ssg">SSG·이마트</option>
+          <option value="kakao">카카오</option>
+          <option value="toss">토스</option>
+          <option value="naver">네이버</option>
+          <option value="momq">맘큐</option>
+          <option value="oliveyoung">올리브영</option>
+          <option value="etc">기타</option>
+        </select>
+      </div>
+      <div>
+        <label>등급</label>
+        <select id="grade">
+          <option value="hot">핫딜 🔥</option>
+          <option value="good">굿딜 🌱</option>
+          <option value="">없음</option>
+        </select>
+      </div>
+      <div>
+        <label>지금 가격 (숫자만)</label>
+        <input id="price" inputmode="numeric" placeholder="39900" />
+      </div>
+      <div>
+        <label>정상가 (없으면 비움)</label>
+        <input id="wasPrice" inputmode="numeric" placeholder="59000" />
+      </div>
+      <div class="full">
+        <label>상품명</label>
+        <input id="title" placeholder="하기스 맥스드라이 팬티 4팩" />
+      </div>
+      <div class="full">
+        <label>카드 혜택 (선택)</label>
+        <input id="cardInfo" placeholder="삼성카드 7% 추가할인" />
+      </div>
+      <div class="full">
+        <label>상품 링크 (내 제휴 링크)</label>
+        <input id="link" placeholder="https://link.coupang.com/..." />
+      </div>
+      <div class="full">
+        <label>이미지 주소 (선택)</label>
+        <div style="display:flex; gap:7px;">
+          <input id="photo" placeholder="비워도 됩니다" style="flex:1;" />
+          <button type="button" id="findPhotoBtn" style="flex:none; padding:0 14px; border:1px solid var(--line-strong); background:var(--green-wash); color:var(--green-deep); border-radius:10px; font-family:inherit; font-size:13px; font-weight:600; cursor:pointer; white-space:nowrap;">🔍 사진 찾기</button>
+        </div>
+      </div>
+      <div class="full">
+        <label>타임딜 시간</label>
+        <select id="timeSlot">
+          <option value="">기본 · 지금부터 오늘 자정까지 (권장)</option>
+          <option value="keep">시간 제한 없음 (계속 노출)</option>
+          <option value="00:00|23:59">오늘 하루 종일 (00시 ~ 24시)</option>
+          <option value="10:00|10:10">오늘 10시 ~ 10시 10분 (10분 딜)</option>
+          <option value="10:00|13:00">오늘 10시 ~ 13시</option>
+          <option value="11:00|15:00">오늘 11시 ~ 15시</option>
+          <option value="13:00|18:00">오늘 13시 ~ 18시</option>
+          <option value="15:00|19:00">오늘 15시 ~ 19시</option>
+          <option value="18:00|19:00">오늘 18시 ~ 19시</option>
+          <option value="18:00|22:00">오늘 18시 ~ 22시</option>
+          <option value="19:00|23:00">오늘 19시 ~ 23시</option>
+          <option value="21:00|23:59">오늘 21시 ~ 자정</option>
+          <option value="22:00|+10:00">오늘 밤 22시 ~ 내일 아침 10시</option>
+          <option value="07:00|+07:00">오늘 7시 ~ 내일 7시 (24시간)</option>
+          <option value="custom">직접 입력…</option>
+        </select>
+      </div>
+      <div id="customTime" style="display:none; grid-column:1/-1;">
+        <div class="grid2">
+          <div>
+            <label>시작 시간</label>
+            <input id="startAt" type="datetime-local" />
+          </div>
+          <div>
+            <label>종료 시간</label>
+            <input id="endAt" type="datetime-local" />
+          </div>
+        </div>
+      </div>
+      <div class="full">
+        <label>카테고리 태그 (누르면 선택)</label>
+        <div id="tagPick" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+      </div>
+      <div class="full">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;color:var(--ink);">
+          <input type="checkbox" id="hasOptions" style="width:18px;height:18px;flex:none;" />
+          🛒 세부 옵션 선택 가능 (옵션이 여러 개인 딜)
+        </label>
+      </div>
+      <div class="full">
+        <label>노출 위치</label>
+        <select id="kind">
+          <option value="">⏰ 실시간 타임딜</option>
+          <option value="일반핫딜">⚡ 오늘의 할인딜 (자동딜과 섞기)</option>
+          <option value="기획전">🎪 몰별 기획전 (기획전 탭)</option>
+          <option value="단독">⭐ 바이웰 단독 (공동구매·기획)</option>
+        </select>
+      </div>
+      <div class="full" id="eventFields" style="display:none;">
+        <label>행사 안내 문구 (예: 최대 50% 할인)</label>
+        <input id="evInfo" placeholder="최대 50% 할인 · 쿠폰 중복" />
+        <label style="margin-top:12px;">행사 종료일</label>
+        <input id="evEnd" type="date" />
+      </div>
+      <div class="full" id="singleFields" style="display:none;">
+        <label>유형 (카드에 붙는 라벨)</label>
+        <input id="sgType" placeholder="공동구매" />
+        <label style="margin-top:12px;">진행 기간</label>
+        <input id="sgPeriod" placeholder="7월 1일 ~ 7월 8일" />
+        <label style="margin-top:12px;">상세설명 (엔터로 한 줄씩 · 앞에 ✓ 자동)</label>
+        <textarea id="sgDetail" style="height:120px;" placeholder="리뷰 작성 시 3,000 포인트 증정&#10;SNS 후기 작성 시 10,000 포인트 증정&#10;구매 후 1:1 인증 시 5천원 기프티콘"></textarea>
+      </div>
+    </div>
+
+    <div class="preview">
+      <span class="pv-mall" id="pvMall">쇼핑몰</span>
+      <h3 class="pv-title" id="pvTitle">상품명이 여기 표시돼요</h3>
+      <div><span class="pv-price" id="pvPrice">0원</span><span class="pv-was" id="pvWas"></span></div>
+      <div id="pvCardWrap"></div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-green" id="saveBtn" type="button">시트에 등록하기</button>
+    </div>
+    <p class="hint">등록하면 구글 시트 딜정보 탭에 자동으로 한 줄 추가돼요. 홈페이지엔 몇 분 안에 떠요.</p>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  var $ = function (id) { return document.getElementById(id); };
+  var MALL_KO = { coupang: "쿠팡", gmarket: "지마켓", "11st": "11번가", ohou: "오늘의집", lotteon: "롯데온", ssg: "SSG·이마트", kakao: "카카오", toss: "토스", naver: "네이버", momq: "맘큐", oliveyoung: "올리브영", etc: "기타" };
+
+  /* ---------- 잠금 ---------- */
+  (function () {
+    var PW = "bwlw2026"; // 비밀번호 (원하면 바꾸세요)
+    var lock = $("lock");
+    if (sessionStorage.getItem("bwlw_admin") === "ok") { lock.style.display = "none"; }
+    function tryPw() {
+      if ($("pw").value === PW) {
+        sessionStorage.setItem("bwlw_admin", "ok");
+        lock.style.display = "none";
+      } else {
+        $("pwErr").textContent = "비밀번호가 맞지 않아요.";
+      }
+    }
+    $("pwBtn").addEventListener("click", tryPw);
+    $("pw").addEventListener("keydown", function (e) { if (e.key === "Enter") tryPw(); });
+  })();
+
+  /* ---------- 똑똑한 분석 ---------- */
+  function smartParse(raw) {
+    raw = (raw || "").replace(/\r/g, "");
+    var lines = raw.split("\n").map(function (v) { return v.trim(); }).filter(Boolean);
+    var out = { mall: "", title: "", price: 0, was: 0, cardInfo: "", link: "", hasOptions: false };
+
+    // --- 몰: 맨 앞 [대괄호] 안을 우선으로 찾기 ---
+    var MALLS = [
+      ["오늘의집", "ohou"], ["오집", "ohou"],
+      ["쿠팡", "coupang"],
+      ["지마켓", "gmarket"], ["G마켓", "gmarket"], ["G마켓", "gmarket"],
+      ["11번가", "11st"], ["십일번가", "11st"],
+      ["롯데온", "lotteon"], ["롯데홈쇼핑", "lotteon"],
+      ["SSG", "ssg"], ["이마트", "ssg"], ["쓱", "ssg"], ["신세계", "ssg"],
+      ["카카오", "kakao"], ["톡딜", "kakao"], ["카카오쇼핑", "kakao"],
+      ["토스", "toss"], ["네이버", "naver"], ["맘큐", "momq"], ["올리브영", "oliveyoung"],
+      ["컬리", "etc"], ["옥션", "etc"], ["하이마트", "etc"], ["예스24", "etc"], ["위메프", "etc"], ["티몬", "etc"]
+    ];
+    var firstBracket = raw.match(/\[([^\]]+)\]/);
+    var mallSrc = firstBracket ? firstBracket[1] : "";
+    function findMall(src) {
+      for (var i = 0; i < MALLS.length; i++) {
+        if (src.indexOf(MALLS[i][0]) > -1) return MALLS[i][1];
+      }
+      return "";
+    }
+    out.mall = findMall(mallSrc) || findMall(raw) || "";
+
+    // --- 링크 ---
+    var url = raw.match(/https?:\/\/[^\s]+/);
+    if (url) out.link = url[0];
+
+    // --- 카드/결제수단 ---
+    var PAY = [
+      "카카오페이", "토스페이", "네이버페이", "페이코",
+      "삼성카드", "국민카드", "농협카드", "하나카드", "롯데카드", "비씨카드",
+      "신한카드", "현대카드", "IBK카드", "우리카드", "씨티카드",
+      "삼카", "국카", "롯카", "신카", "현카", "농카", "하나", "우카",
+      "카카오", "토스", "카드", "쿠폰", "와우", "할인"
+    ];
+    function isNoise(L) {
+      return L.indexOf("수수료") > -1 || L.indexOf("🔖") > -1 || L.indexOf("제공 받") > -1;
+    }
+    for (var k = 0; k < lines.length; k++) {
+      var L = lines[k];
+      if (L.indexOf("http") === 0 || isNoise(L)) continue;
+      var body = L.replace(/\[[^\]]*\]/g, "").trim();   // [농할쿠폰] 같은 대괄호는 빼고 판단
+      if (!body) continue;
+      if (/[0-9]{4,}\s*원/.test(body)) continue;        // 가격이 든 줄은 상품명 줄
+      if (body.replace(/[^가-힣a-zA-Z0-9]/g, "").length > 22) continue; // 너무 길면 상품명
+      var hit = PAY.some(function (w) { return body.indexOf(w) > -1; });
+      if (hit) {
+        out.cardInfo = body.replace(/^[\s\u2714\u2705\uFE0F\u2022\-\u25CF\uD83D\uDCB3\uD83D\uDCB0\u2728]+/, "").trim();
+        break;
+      }
+    }
+
+    // --- 가격: "원"이 붙은 숫자 + 옵션 나열(콤마 뒤 숫자)까지 ---
+    var nums = [];
+    var reWon = /([0-9]{1,3}(?:,[0-9]{3})+|[0-9]{4,})\s*원/g, m1;
+    while ((m1 = reWon.exec(raw)) !== null) nums.push(Number(m1[1].replace(/,/g, "")));
+    if (!nums.length) {
+      // "옵션명, 40680" 처럼 원 없이 나열된 경우
+      var reBare = /,\s*([0-9]{1,3}(?:,[0-9]{3})+|[0-9]{4,})\s*$/gm, m2;
+      while ((m2 = reBare.exec(raw)) !== null) nums.push(Number(m2[1].replace(/,/g, "")));
+    }
+    if (nums.length === 1) { out.price = nums[0]; }
+    else if (nums.length > 1) {
+      out.price = Math.min.apply(null, nums);
+      var hasWas = /정가|정상가|원가|할인전/.test(raw);
+      out.was = hasWas ? Math.max.apply(null, nums) : 0;
+      out.hasOptions = true;   // 가격이 여러 개 = 옵션이 있는 딜
+    }
+
+    // --- 상품명: 앞의 대괄호들을 모두 벗겨낸 줄 ---
+    var EMO = /^[\s\u2714\u2705\uFE0F\u2022\-\u25CF\u25A0\uD83D\uDCB3\uD83D\uDD16\uD83D\uDCB0\uD83D\uDED2\u2728]+/;
+    for (var n = 0; n < lines.length; n++) {
+      var s = lines[n];
+      if (s.indexOf("http") === 0) continue;
+      if (isNoise(s)) continue;
+      if (out.cardInfo && s === out.cardInfo) continue;
+      var stripped = s.replace(/^(\s*\[[^\]]*\]\s*)+/, "").trim(); // 앞쪽 [..] 전부 제거
+      stripped = stripped.replace(EMO, "").trim();                  // 앞 이모지/불릿 제거
+      if (!stripped) continue;                                      // 대괄호만 있던 줄
+      if (/^[0-9,]+\s*원?\s*$/.test(stripped)) continue;            // 가격만 있는 줄
+      // 상품명 뒤에 ", 13895원" 처럼 가격이 붙은 경우 잘라내기
+      stripped = stripped.replace(/[,\uFF0C]\s*[0-9][0-9,]*\s*원?\s*$/, "").trim();
+      stripped = stripped.replace(/\s+[0-9][0-9,]{3,}\s*원\s*$/, "").trim();
+      if (stripped.replace(/[^가-힣a-zA-Z0-9]/g, "").length < 4) continue;
+      out.title = stripped;
+      break;
+    }
+    return out;
+  }
+
+  function fill(p) {
+    $("hasOptions").checked = !!p.hasOptions;
+    $("mall").value = p.mall || "";
+    $("title").value = p.title || "";
+    $("price").value = p.price || "";
+    $("wasPrice").value = p.was || "";
+    $("cardInfo").value = p.cardInfo || "";
+    $("link").value = p.link || "";
+    preview();
+  }
+
+  function preview() {
+    var mall = $("mall").value;
+    $("pvMall").textContent = MALL_KO[mall] || "쇼핑몰";
+    $("pvTitle").textContent = $("title").value || "상품명이 여기 표시돼요";
+    var p = Number($("price").value || 0), w = Number($("wasPrice").value || 0);
+    $("pvPrice").textContent = p ? p.toLocaleString("ko-KR") + "원" : "0원";
+    $("pvWas").textContent = (w > p && w > 0) ? w.toLocaleString("ko-KR") + "원" : "";
+    var ci = $("cardInfo").value;
+    $("pvCardWrap").innerHTML = ci ? '<span class="pv-card">💳 ' + ci.replace(/</g, "&lt;") + "</span>" : "";
+  }
+
+  /* ---------- 타임딜 시간 (드롭다운 → 날짜 자동) ---------- */
+  function ymd(d) {
+    var p = function (n) { return (n < 10 ? "0" : "") + n; };
+    return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate());
+  }
+  var TAGS = ["기저귀", "유아식", "육아용품", "장난감·교구", "도서", "생필품", "식품", "가전", "패션", "뷰티", "여행티켓"];
+  var pickedTags = [];
+  (function buildTagPick() {
+    var box = $("tagPick");
+    if (!box) return;
+    TAGS.forEach(function (t) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "tagpick-chip";
+      b.textContent = "#" + t;
+      b.setAttribute("aria-pressed", "false");
+      b.addEventListener("click", function () {
+        var on = b.getAttribute("aria-pressed") === "true";
+        b.setAttribute("aria-pressed", on ? "false" : "true");
+        if (on) pickedTags = pickedTags.filter(function (x) { return x !== t; });
+        else pickedTags.push(t);
+      });
+      box.appendChild(b);
+    });
+  })();
+
+  function dtLocalToSheet(v) {
+    // "2026-07-12T10:00" → "2026-07-12 10:00"
+    return (v || "").replace("T", " ");
+  }
+
+  function slotToTimes() {
+    var v = $("timeSlot").value;
+    var today = new Date();
+    if (!v) {
+      var p = function (n) { return (n < 10 ? "0" : "") + n; };
+      var nowStr = ymd(today) + " " + p(today.getHours()) + ":" + p(today.getMinutes());
+      return { start: nowStr, end: ymd(today) + " 23:59" };
+    }
+    if (v === "keep") return { start: "", end: "" };
+    if (v === "custom") return { start: dtLocalToSheet($("startAt").value), end: dtLocalToSheet($("endAt").value) };
+    var parts = v.split("|");
+    var startStr = ymd(today) + " " + parts[0];
+    var endPart = parts[1];
+    var endStr;
+    if (endPart.indexOf("+") === 0) {
+      var tm = new Date(today.getTime() + 86400000);
+      endStr = ymd(tm) + " " + endPart.slice(1);
+    } else {
+      endStr = ymd(today) + " " + endPart;
+    }
+    return { start: startStr, end: endStr };
+  }
+  $("timeSlot").addEventListener("change", function () {
+    $("customTime").style.display = ($("timeSlot").value === "custom") ? "block" : "none";
+  });
+
+  // 기획전/단독 선택 시 화면 전환
+  $("kind").addEventListener("change", function () {
+    var v = $("kind").value;
+    var isEvent = v === "기획전";
+    var isSingle = v === "단독";
+    var isSpecial = isEvent || isSingle; // 딜이 아닌 특수 등록
+
+    $("eventFields").style.display = isEvent ? "block" : "none";
+    $("singleFields").style.display = isSingle ? "block" : "none";
+    // 특수 등록엔 가격/정상가/등급/옵션/태그/시간이 필요 없음
+    ["price", "wasPrice"].forEach(function (id) {
+      $(id).closest("div").style.display = isSpecial ? "none" : "";
+    });
+    $("hasOptions").closest(".full").style.display = isSpecial ? "none" : "";
+    $("tagPick").closest(".full").style.display = isSpecial ? "none" : "";
+    $("timeSlot").closest(".full").style.display = isSpecial ? "none" : "";
+    $("grade").closest("div").style.display = isSpecial ? "none" : "";
+
+    var titleLabel = isSingle ? "단독기획명" : (isEvent ? "행사명" : "상품명");
+    var linkLabel = isSingle ? "참여 링크 (내 제휴 링크)" : (isEvent ? "행사 링크" : "상품 링크 (내 제휴 링크)");
+    var photoLabel = isSpecial ? "배너 이미지 (선택)" : "이미지 주소 (선택)";
+    var btnLabel = isSingle ? "단독 등록하기" : (isEvent ? "기획전 등록하기" : "시트에 등록하기");
+    $("title").previousElementSibling.textContent = titleLabel;
+    $("link").previousElementSibling.textContent = linkLabel;
+    $("photo").previousElementSibling.textContent = photoLabel;
+    $("saveBtn").textContent = btnLabel;
+  });
+
+  /* ---------- 사진·정상가 자동 채우기 ---------- */
+  var API_DEALS = null;
+  async function loadApiDeals() {
+    if (API_DEALS) return API_DEALS;
+    var urls = [
+      "/.netlify/functions/deals",
+      "/.netlify/functions/deals_linkprice",
+      "/.netlify/functions/deals_coupang"
+    ];
+    var all = [];
+    await Promise.all(urls.map(function (u) {
+      return fetch(u).then(function (r) { return r.json(); })
+        .then(function (j) { if (j && j.deals) all = all.concat(j.deals); })
+        .catch(function () {});
+    }));
+    API_DEALS = all;
+    return all;
+  }
+  function normTitle(s) {
+    return (s || "").replace(/\[[^\]]*\]/g, "").replace(/[^가-힣a-zA-Z0-9]/g, "").toLowerCase();
+  }
+  async function autoFillFromApi() {
+    var link = $("link").value.trim();
+    var title = $("title").value.trim();
+    var mall = $("mall").value;
+    if (!link && !title) return;
+    if ($("photo").value.trim() && $("wasPrice").value.trim()) return;
+
+    var list = await loadApiDeals();
+
+    // 1차: 링크로 매칭 (애드픽 click.gl 등)
+    var hit = (link && list.length) ? list.find(function (x) { return x.buyurl && x.buyurl === link; }) : null;
+
+    // 2차: 상품명으로 매칭
+    if (!hit && title && list.length) {
+      var key = normTitle(title).slice(0, 10);
+      if (key.length >= 5) {
+        hit = list.find(function (x) {
+          var t = normTitle(x.title);
+          return t.indexOf(key) > -1 || key.indexOf(t.slice(0, 10)) > -1;
+        });
+      }
+    }
+
+    if (hit) {
+      var filled = [];
+      if (!$("photo").value.trim() && hit.photo) { $("photo").value = hit.photo; filled.push("사진"); }
+      if (!$("wasPrice").value.trim() && hit.was > hit.now) { $("wasPrice").value = hit.was; filled.push("정상가"); }
+      if (filled.length) { preview(); toast(filled.join("·") + "를 자동으로 채웠어요! ✨"); return; }
+    }
+
+    // 3차: 쿠팡 딜이면 쿠팡 상품 검색으로 사진 찾기
+    if (mall === "coupang" && title && !$("photo").value.trim()) {
+      try {
+        var r = await fetch("/.netlify/functions/coupang_search?q=" + encodeURIComponent(title));
+        var j = await r.json();
+        if (j && j.found && j.photo) {
+          $("photo").value = j.photo;
+          preview();
+          toast("쿠팡에서 사진을 찾았어요! ✨ (확인해 주세요)");
+        }
+      } catch (e) {}
+    }
+  }
+
+  var toastT = null;
+  function toast(msg) {
+    var t = $("toast"); t.textContent = msg; t.classList.add("show");
+    clearTimeout(toastT); toastT = setTimeout(function () { t.classList.remove("show"); }, 2400);
+  }
+
+  $("findPhotoBtn").addEventListener("click", async function () {
+    var b = $("findPhotoBtn");
+    if (!$("title").value.trim()) { toast("먼저 상품명이 있어야 해요"); return; }
+    b.disabled = true; b.textContent = "찾는 중…";
+    $("photo").value = "";   // 다시 찾도록 비우기
+    await autoFillFromApi();
+    if (!$("photo").value.trim()) toast("사진을 못 찾았어요. 직접 넣어 주세요 🙏");
+    b.disabled = false; b.textContent = "🔍 사진 찾기";
+  });
+
+  $("parseBtn").addEventListener("click", function () {
+    var raw = $("rawText").value.trim();
+    if (!raw) { toast("먼저 문구를 붙여넣어 주세요"); return; }
+    fill(smartParse(raw));
+    toast("분석했어요! 확인하고 등록하세요");
+    autoFillFromApi();   // 사진·정상가를 API에서 찾아 채우기
+  });
+  $("clearBtn").addEventListener("click", function () {
+    ["rawText", "title", "price", "wasPrice", "cardInfo", "link", "photo", "startAt", "endAt", "evInfo", "evEnd", "sgType", "sgPeriod", "sgDetail"].forEach(function (id) { if ($(id)) $(id).value = ""; });
+    $("mall").value = ""; $("grade").value = "hot"; $("kind").value = "";
+    $("timeSlot").value = ""; $("customTime").style.display = "none";
+    $("hasOptions").checked = false;
+    pickedTags = [];
+    document.querySelectorAll(".tagpick-chip").forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
+    $("kind").dispatchEvent(new Event("change")); // 특수 입력칸 숨김 복원
+    preview();
+  });
+  ["mall", "title", "price", "wasPrice", "cardInfo", "grade"].forEach(function (id) {
+    $(id).addEventListener("input", preview);
+    $(id).addEventListener("change", preview);
+  });
+
+  $("saveBtn").addEventListener("click", async function () {
+    var isEvent = $("kind").value === "기획전";
+    var isSingle = $("kind").value === "단독";
+
+    // ── 바이웰 단독 등록 ──
+    if (isSingle) {
+      var sg = {
+        isSingle: true,
+        name: $("title").value.trim(),
+        type: $("sgType").value.trim() || "공동구매",
+        period: $("sgPeriod").value.trim(),
+        url: $("link").value.trim(),
+        banner: $("photo").value.trim(),
+        detail: $("sgDetail").value.replace(/\r/g, "").trim()
+      };
+      if (!sg.name) { toast("단독기획명을 입력해 주세요"); return; }
+      if (!sg.url) { toast("참여 링크를 넣어 주세요"); return; }
+      var sb = $("saveBtn");
+      sb.disabled = true; sb.textContent = "등록 중…";
+      try {
+        var sr = await fetch("/.netlify/functions/add_deal", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(sg)
+        });
+        var sj = await sr.json();
+        if (sj && sj.success) { toast("바이웰 단독 등록 완료! 🎉"); $("clearBtn").click(); }
+        else { toast("등록 실패: " + ((sj && sj.error) || "알 수 없는 오류")); }
+      } catch (e) { toast("서버 연결 실패"); }
+      sb.disabled = false; sb.textContent = "단독 등록하기";
+      return;
+    }
+
+    // ── 기획전 등록 ──
+    if (isEvent) {
+      var ev = {
+        isEvent: true,
+        name: $("title").value.trim(),
+        mall: $("mall").value || "etc",
+        endDate: $("evEnd").value.trim(),
+        url: $("link").value.trim(),
+        banner: $("photo").value.trim(),
+        info: $("evInfo").value.trim()
+      };
+      if (!ev.name) { toast("행사명을 입력해 주세요"); return; }
+      if (!ev.url) { toast("행사 링크를 넣어 주세요"); return; }
+      var eb = $("saveBtn");
+      eb.disabled = true; eb.textContent = "등록 중…";
+      try {
+        var er = await fetch("/.netlify/functions/add_deal", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(ev)
+        });
+        var ej = await er.json();
+        if (ej && ej.success) { toast("기획전 등록 완료! 🎉"); $("clearBtn").click(); }
+        else { toast("등록 실패: " + ((ej && ej.error) || "알 수 없는 오류")); }
+      } catch (e) { toast("서버 연결 실패"); }
+      eb.disabled = false; eb.textContent = "기획전 등록하기";
+      return;
+    }
+
+    var t = slotToTimes();
+    var deal = {
+      title: $("title").value.trim(),
+      price: Number($("price").value || 0),
+      was: Number($("wasPrice").value || 0),
+      photo: $("photo").value.trim(),
+      link: $("link").value.trim(),
+      mall: $("mall").value || "etc",
+      grade: $("grade").value,
+      startAt: t.start,
+      endAt: t.end,
+      cardInfo: $("cardInfo").value.trim(),
+      kind: $("kind").value,
+      tags: pickedTags.join(","),
+      hasOptions: $("hasOptions").checked ? "O" : ""
+    };
+    if (!deal.title) { toast("상품명을 입력해 주세요"); return; }
+    if (!deal.price) { toast("가격을 입력해 주세요"); return; }
+    if (!deal.link) { toast("상품 링크를 넣어 주세요"); return; }
+
+    // 중복 확인
+    try {
+      var dupRes = await fetch("/.netlify/functions/deals_sheet?all=1");
+      var dupJson = await dupRes.json();
+      var existing = (dupJson && dupJson.deals) ? dupJson.deals : [];
+      var sameLink = existing.some(function (x) { return x.buyurl && x.buyurl === deal.link; });
+      if (sameLink) {
+        if (!confirm("⚠️ 이미 같은 링크의 딜이 등록돼 있어요.\n그래도 등록할까요?")) return;
+      } else {
+        var key = deal.title.replace(/\s+/g, "").slice(0, 12);
+        var similar = existing.some(function (x) {
+          return key && (x.title || "").replace(/\s+/g, "").indexOf(key) > -1;
+        });
+        if (similar) {
+          if (!confirm("비슷한 상품이 이미 있어요.\n그래도 등록할까요?")) return;
+        }
+      }
+    } catch (e) { /* 중복 확인 실패해도 등록은 진행 */ }
+
+    var btn = $("saveBtn");
+    btn.disabled = true; btn.textContent = "등록 중…";
+    try {
+      var res = await fetch("/.netlify/functions/add_deal", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(deal)
+      });
+      var j = await res.json();
+      if (j && j.success) {
+        toast("등록 완료! 곧 홈페이지에 떠요 🎉");
+        $("clearBtn").click();
+      } else {
+        toast("등록 실패: " + ((j && j.error) || "알 수 없는 오류"));
+      }
+    } catch (e) {
+      toast("서버 연결 실패");
+    }
+    btn.disabled = false; btn.textContent = "시트에 등록하기";
+  });
+
+  preview();
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "바이웰 리브웰 · 오늘의 핫딜",
+  "short_name": "BWLW",
+  "description": "잘 사서, 잘 살기. 현명한 소비의 첫걸음.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FBF7EC",
+  "theme_color": "#2E6B4D",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

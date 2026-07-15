@@ -1,0 +1,12 @@
+[build]
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# 예전 netlify 주소로 들어오면 대표 도메인(bwlw.kr)으로 자동 이동 — SEO 점수 통일
+[[redirects]]
+  from = "https://bwlw.netlify.app/*"
+  to = "https://bwlw.kr/:splat"
+  status = 301
+  force = true
