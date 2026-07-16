@@ -451,6 +451,7 @@
   async function loadApiDeals() {
     if (API_DEALS) return API_DEALS;
     var urls = [
+      "/.netlify/functions/deals_sheet",
       "/.netlify/functions/deals",
       "/.netlify/functions/deals_linkprice",
       "/.netlify/functions/deals_coupang"
@@ -464,10 +465,23 @@
     API_DEALS = all;
     return all;
   }
+
+  // 두 상품명이 "같은 상품"이라 볼 만큼 충분히 겹치는지 (엄격 매칭)
+  function titleMatch(a, b) {
+    a = normTitle(a); b = normTitle(b);
+    if (!a || !b) return false;
+    if (a === b) return true;
+    var shorter = a.length <= b.length ? a : b;
+    var longer = a.length <= b.length ? b : a;
+    // 짧은 쪽이 너무 짧으면 오매칭 위험 → 매칭 안 함
+    if (shorter.length < 8) return false;
+    // 짧은 상품명이 긴 상품명에 통째로 포함되면 같은 상품으로 간주
+    return longer.indexOf(shorter) > -1;
+  }
   function normTitle(s) {
     return (s || "").replace(/\[[^\]]*\]/g, "").replace(/[^가-힣a-zA-Z0-9]/g, "").toLowerCase();
   }
-  async function autoFillFromApi() {
+  async function autoFillFromApi(allowCoupangSearch) {
     var link = $("link").value.trim();
     var title = $("title").value.trim();
     var mall = $("mall").value;
@@ -476,18 +490,12 @@
 
     var list = await loadApiDeals();
 
-    // 1차: 링크로 매칭 (애드픽 click.gl 등)
+    // 1차: 링크가 정확히 같은 딜 (가장 확실)
     var hit = (link && list.length) ? list.find(function (x) { return x.buyurl && x.buyurl === link; }) : null;
 
-    // 2차: 상품명으로 매칭
+    // 2차: 상품명이 충분히 일치하는 딜만 (엄격 매칭 — 엉뚱한 이미지 방지)
     if (!hit && title && list.length) {
-      var key = normTitle(title).slice(0, 10);
-      if (key.length >= 5) {
-        hit = list.find(function (x) {
-          var t = normTitle(x.title);
-          return t.indexOf(key) > -1 || key.indexOf(t.slice(0, 10)) > -1;
-        });
-      }
+      hit = list.find(function (x) { return x.photo && titleMatch(title, x.title); });
     }
 
     if (hit) {
@@ -497,8 +505,8 @@
       if (filled.length) { preview(); toast(filled.join("·") + "를 자동으로 채웠어요! ✨"); return; }
     }
 
-    // 3차: 쿠팡 딜이면 쿠팡 상품 검색으로 사진 찾기
-    if (mall === "coupang" && title && !$("photo").value.trim()) {
+    // 3차: 쿠팡 딜이면 쿠팡 상품 검색으로 사진 찾기 (버튼 눌렀을 때만 — 자동 등록 땐 생략)
+    if (allowCoupangSearch && mall === "coupang" && title && !$("photo").value.trim()) {
       try {
         var r = await fetch("/.netlify/functions/coupang_search?q=" + encodeURIComponent(title));
         var j = await r.json();
@@ -522,7 +530,7 @@
     if (!$("title").value.trim()) { toast("먼저 상품명이 있어야 해요"); return; }
     b.disabled = true; b.textContent = "찾는 중…";
     $("photo").value = "";   // 다시 찾도록 비우기
-    await autoFillFromApi();
+    await autoFillFromApi(true);
     if (!$("photo").value.trim()) toast("사진을 못 찾았어요. 직접 넣어 주세요 🙏");
     b.disabled = false; b.textContent = "🔍 사진 찾기";
   });

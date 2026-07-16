@@ -170,8 +170,17 @@
   .thumb { aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
   .thumb .glyph { font-size: 40px; opacity: .55; }
   .thumb-img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
-  .disc { position: absolute; top: 10px; left: 10px; background: var(--coral); color: #fff; font-size: 13px; font-weight: 700; padding: 3px 9px; border-radius: 8px; }
-  .grade { position: absolute; top: 10px; right: 10px; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 8px; }
+  .fav-tab-count { display: inline-flex; align-items: center; justify-content: center; min-width: 16px; height: 16px; padding: 0 4px; margin-left: 3px; background: #FF4757; color: #fff; font-size: 10px; font-weight: 700; border-radius: 8px; vertical-align: middle; }
+  .fav-tab-count[hidden] { display: none; }
+  .disc { background: var(--coral); color: #fff; font-size: 13px; font-weight: 700; padding: 3px 9px; border-radius: 8px; }
+  .grade { font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 8px; }
+  .fav-btn { position: absolute; top: 8px; right: 8px; width: 34px; height: 34px; border: none; border-radius: 50%; background: rgba(255,255,255,.9); backdrop-filter: blur(2px); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 3; box-shadow: 0 2px 6px rgba(0,0,0,.12); transition: transform .12s; padding: 0; }
+  .fav-btn:hover { transform: scale(1.08); }
+  .fav-btn:active { transform: scale(.92); }
+  .fav-btn svg { width: 19px; height: 19px; }
+  .fav-btn .heart { fill: none; stroke: #9C927F; stroke-width: 2; transition: fill .15s, stroke .15s; }
+  .fav-btn[aria-pressed="true"] .heart { fill: #FF4757; stroke: #FF4757; animation: favpop .3s; }
+  @keyframes favpop { 0%{transform:scale(1)} 40%{transform:scale(1.35)} 100%{transform:scale(1)} }
   .grade.hot { background: #FBE3DC; color: #B23A20; }
   .grade.good { background: #E4F1D8; color: #2E6B4D; }
   .grade.gold { background: #FBF0CE; color: #9A6B0E; }
@@ -402,6 +411,7 @@
     <button class="tab" type="button" data-tab="all" aria-selected="true"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>전체보기</button>
     <button class="tab" type="button" data-tab="jjin" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>실시간 타임딜</button>
     <button class="tab" type="button" data-tab="live" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg>오늘의 할인딜</button>
+    <button class="tab" type="button" data-tab="fav" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.4 3-5.5A3.5 3.5 0 0 0 12 5 3.5 3.5 0 0 0 2 8.5c0 2.1 1.5 4 3 5.5l7 7Z"/></svg>찜<span id="favTabCount" class="fav-tab-count" hidden></span></button>
     <button class="tab" type="button" data-tab="single" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7S9 2 6.5 4.5 12 7 12 7Z"/><path d="M12 7s3-5 5.5-2.5S12 7 12 7Z"/></svg>바이웰 단독</button>
     <button class="tab" type="button" data-tab="notice" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l4 4V6L6 10H4a1 1 0 0 0-1 1Z"/><path d="M15.5 8.5a4 4 0 0 1 0 7"/><path d="M18.5 6a7 7 0 0 1 0 12"/></svg>공지사항</button>
     <button class="tab" type="button" data-tab="tips" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>육아 꿀팁</button>
@@ -518,6 +528,17 @@
     </section>
   </div>
 
+  <div class="tab-panel" id="panel-fav">
+    <section class="wrap" style="padding:22px 20px 40px;">
+      <div class="featured-head" style="margin-bottom:4px;">
+        <span class="eyebrow" style="color:#FF4757;">❤️ 찜한 딜</span>
+        <span class="featured-sub">하트를 누른 딜을 여기 모아뒀어요</span>
+      </div>
+      <p class="count" id="fav-count" style="margin:10px 0 4px;"></p>
+      <div class="grid" id="fav-grid"></div>
+    </section>
+  </div>
+
   <div class="tab-panel" id="panel-single">
     <section class="gonggu-band">
       <div class="wrap gonggu-inner">
@@ -596,6 +617,70 @@
 </footer>
 
 <script>
+  /* ============================================================
+     bwlwStore — 저장소 레이어 (추상화)
+     지금은 브라우저(localStorage)에 저장하지만, 나중에 로그인/서버가
+     생기면 이 레이어 '안쪽'만 서버 연동으로 바꾸면 됩니다.
+     화면·버튼 등 이 레이어를 쓰는 쪽 코드는 고칠 필요가 없어요.
+     ============================================================ */
+  var bwlwStore = (function () {
+    var PREFIX = "bwlw:";
+    function read(key, fallback) {
+      try {
+        var raw = localStorage.getItem(PREFIX + key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch (e) { return fallback; }
+    }
+    function write(key, value) {
+      try { localStorage.setItem(PREFIX + key, JSON.stringify(value)); return true; }
+      catch (e) { return false; }
+    }
+    return {
+      // ── ❤️ 찜한 딜 ──
+      // 딜은 buyurl(없으면 상품명)로 식별해요.
+      dealKey: function (d) { return (d && (d.buyurl || d.title || "")) || ""; },
+      getFavorites: function () { return read("favorites", {}); },   // { key: {저장한 딜 정보} }
+      isFavorite: function (d) {
+        var k = this.dealKey(d); if (!k) return false;
+        return !!this.getFavorites()[k];
+      },
+      toggleFavorite: function (d) {
+        var k = this.dealKey(d); if (!k) return false;
+        var favs = this.getFavorites();
+        if (favs[k]) { delete favs[k]; write("favorites", favs); return false; }
+        favs[k] = { title: d.title, now: d.now, was: d.was, buyurl: d.buyurl, mall: d.mall, photo: d.photo, savedAt: Date.now() };
+        write("favorites", favs); return true;
+      },
+      favoriteCount: function () { return Object.keys(this.getFavorites()).length; },
+
+      // ── 🔔 키워드 알림 (다음 단계에서 사용) ──
+      getKeywords: function () { return read("keywords", []); },
+      addKeyword: function (kw) {
+        kw = String(kw || "").trim(); if (!kw) return false;
+        var list = this.getKeywords();
+        if (list.indexOf(kw) > -1) return false;
+        list.push(kw); write("keywords", list); return true;
+      },
+      removeKeyword: function (kw) {
+        var list = this.getKeywords().filter(function (x) { return x !== kw; });
+        write("keywords", list);
+      },
+
+      // ── 👀 최근 본 상품 (나중 단계) ──
+      pushRecent: function (d) {
+        var k = this.dealKey(d); if (!k) return;
+        var list = read("recent", []).filter(function (x) { return x.key !== k; });
+        list.unshift({ key: k, title: d.title, now: d.now, buyurl: d.buyurl, mall: d.mall, photo: d.photo, at: Date.now() });
+        write("recent", list.slice(0, 30));
+      },
+      getRecent: function () { return read("recent", []); },
+
+      // 범용 접근 (확장용)
+      _read: read, _write: write
+    };
+  })();
+  window.bwlwStore = bwlwStore;
+
   var TAGS = ["기저귀", "유아식", "육아용품", "장난감·교구", "도서", "생필품", "식품", "가전", "패션", "뷰티", "여행티켓"];
 
   function buildTags() {
@@ -824,9 +909,15 @@
     var cardHtml = d.cardInfo ? '<div class="card-info"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex:none;margin-top:1px;"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg><span>' + d.cardInfo + '</span></div>' : '';
     var optHtml = d.hasOptions ? '<span class="opt-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.4 11.2a1.5 1.5 0 0 0 1.5 1.2h8.5a1.5 1.5 0 0 0 1.5-1.2L21 7H6"/></svg>세부 옵션 선택 가능</span>' : '';
     var href = d.buyurl || '#';
+    var isFav = window.bwlwStore && bwlwStore.isFavorite(d);
+    var favHtml = '<button class="fav-btn" type="button" aria-pressed="' + (isFav ? 'true' : 'false') + '" title="찜하기" onclick="toggleFav(this)"' +
+      ' data-title="' + escAttr(d.title) + '" data-now="' + d.now + '" data-was="' + d.was + '"' +
+      ' data-url="' + escAttr(d.buyurl || '') + '" data-mall="' + escAttr(d.mall || 'etc') + '" data-photo="' + escAttr(d.photo || '') + '">' +
+      '<svg viewBox="0 0 24 24"><path class="heart" d="M12 21s-7.5-4.6-10-9.3C.4 8.4 1.9 5 5.2 5c2 0 3.3 1.2 3.8 2.3h.02C9.5 6.2 10.8 5 12.8 5 16.1 5 17.6 8.4 16 11.7 13.5 16.4 12 21 12 21z"/></svg>' +
+      '</button>';
     el.innerHTML =
       '<div class="thumb" style="background:' + hexWash(p.color) + '">' +
-        discHtml + gradeBadge(d) + thumbInner(d) + endHtml +
+        '<div class="badge-col">' + discHtml + gradeBadge(d) + '</div>' + favHtml + thumbInner(d) + endHtml +
       '</div>' +
       '<div class="deal-body">' +
         '<span class="mall">' + pBadge(p, 16) + p.name + '</span>' +
@@ -1296,6 +1387,37 @@
     few.forEach(function (e) { box.appendChild(eventCard(e)); });
   }
 
+  // ❤️ 찜한 딜 렌더링
+  function renderFavorites() {
+    var grid = document.getElementById("fav-grid");
+    var cnt = document.getElementById("fav-count");
+    if (!grid) return;
+    var favs = bwlwStore.getFavorites();
+    var list = Object.keys(favs).map(function (k) { return favs[k]; })
+      .sort(function (a, b) { return (b.savedAt || 0) - (a.savedAt || 0); });
+    grid.innerHTML = "";
+    if (!list.length) {
+      if (cnt) cnt.textContent = "";
+      grid.innerHTML = '<div class="empty" style="grid-column:1/-1"><div class="big">아직 찜한 딜이 없어요</div>마음에 드는 딜의 하트 ❤️ 를 누르면 여기 모여요.</div>';
+      return;
+    }
+    if (cnt) cnt.textContent = "찜한 딜 " + list.length + "개";
+    list.forEach(function (d, i) { grid.appendChild(dealCard(d, i)); });
+    startTimers();
+  }
+
+  // 찜 개수 배지 갱신
+  function updateFavCount() {
+    var n = bwlwStore.favoriteCount();
+    var b = document.getElementById("favTabCount");
+    if (b) { if (n > 0) { b.textContent = n; b.hidden = false; } else { b.hidden = true; } }
+    // 찜 탭이 열려 있으면 목록도 갱신
+    var favPanel = document.getElementById("panel-fav");
+    if (favPanel && favPanel.classList.contains("active")) renderFavorites();
+  }
+  window.updateFavCount = updateFavCount;
+  window.renderFavorites = renderFavorites;
+
   function renderJjin(jjin) {
     var box = document.getElementById("jjin-grid");
     if (!box) return;
@@ -1408,6 +1530,7 @@
   loadEvents();
   loadSingles();
   loadNotices();
+  if (window.updateFavCount) updateFavCount();
 
   // 외부 링크(?q=기저귀)로 들어오면 자동 검색 + 오늘의 할인딜 탭으로 이동
   (function () {
@@ -1671,7 +1794,7 @@
   (function () {
     var tabs = document.querySelectorAll(".tab");
     if (!tabs.length) return;
-    var map = { all: "panel-all", jjin: "panel-jjin", live: "panel-live", single: "panel-single", notice: "panel-notice", tips: "panel-tips" };
+    var map = { all: "panel-all", jjin: "panel-jjin", live: "panel-live", fav: "panel-fav", single: "panel-single", notice: "panel-notice", tips: "panel-tips" };
     tabs.forEach(function (t) {
       t.addEventListener("click", function () {
         var key = t.getAttribute("data-tab");
@@ -1681,6 +1804,7 @@
           if (el) el.classList.toggle("active", k === key);
         });
         if (key === "all" && window.renderAll) window.renderAll();
+        if (key === "fav" && window.renderFavorites) window.renderFavorites();
       });
     });
     // 전체보기의 '더보기' 버튼 → 해당 탭으로 이동
@@ -1721,6 +1845,22 @@
       toastEl.textContent = msg; toastEl.style.opacity = "1";
       clearTimeout(toastTimer); toastTimer = setTimeout(function () { toastEl.style.opacity = "0"; }, 2000);
     }
+    // ❤️ 찜하기 토글
+    window.toggleFav = function (btn) {
+      var d = {
+        title: btn.getAttribute("data-title") || "",
+        now: Number(btn.getAttribute("data-now")) || 0,
+        was: Number(btn.getAttribute("data-was")) || 0,
+        buyurl: btn.getAttribute("data-url") || "",
+        mall: btn.getAttribute("data-mall") || "etc",
+        photo: btn.getAttribute("data-photo") || ""
+      };
+      var nowFav = bwlwStore.toggleFavorite(d);
+      btn.setAttribute("aria-pressed", nowFav ? "true" : "false");
+      if (typeof updateFavCount === "function") updateFavCount();
+      if (typeof toast === "function") toast(nowFav ? "찜 목록에 담았어요 ❤️" : "찜을 해제했어요");
+    };
+
     window.shareDeal = function (btn) {
       var title = btn.getAttribute("data-title") || "";
       var url = btn.getAttribute("data-url") || "";
