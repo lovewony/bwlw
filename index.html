@@ -121,6 +121,8 @@
 
   header.site { border-bottom: 1px solid var(--line); background: #F4F8F2; }
   .site-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 20px; }
+  .tab-fav svg { color: #FF4757; }
+  .tab-fav[aria-selected="true"] svg { color: currentColor; }
   .head-left { display: flex; align-items: center; gap: 16px; min-width: 0; }
   .head-divider { width: 1px; align-self: stretch; background: var(--line); margin: 5px 0; flex: none; }
   .head-slogan { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
@@ -171,9 +173,37 @@
   .thumb .glyph { font-size: 40px; opacity: .55; }
   .thumb-img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
   .fav-tab-count { display: inline-flex; align-items: center; justify-content: center; min-width: 16px; height: 16px; padding: 0 4px; margin-left: 3px; background: #FF4757; color: #fff; font-size: 10px; font-weight: 700; border-radius: 8px; vertical-align: middle; }
+  .kw-notify { display: flex; align-items: center; gap: 11px; background: linear-gradient(135deg, #FFF4E0, #FFE8C7); border: 1px solid #F0D9A8; border-radius: 14px; padding: 13px 15px; margin: 14px 0 0; }
+  .kw-notify[hidden] { display: none; }
+  .kw-notify .kn-ico { font-size: 20px; flex: none; }
+  .kw-notify .kn-txt { flex: 1; font-size: 13.5px; color: #6B5518; line-height: 1.45; }
+  .kw-notify .kn-txt b { color: #4E3E0C; }
+  .kw-notify .kn-go { flex: none; border: none; background: #E0A924; color: #fff; font-family: inherit; font-size: 12.5px; font-weight: 700; padding: 8px 13px; border-radius: 999px; cursor: pointer; white-space: nowrap; }
+  .kw-notify .kn-close { flex: none; border: none; background: transparent; color: #B49B6A; font-size: 18px; cursor: pointer; padding: 0 2px; line-height: 1; }
+  .kw-alert { display: flex; align-items: center; gap: 10px; background: #FFF6E9; border: 1px solid #F1E0BE; border-radius: 12px; padding: 11px 14px; margin: 4px 0 14px; }
+  .kw-alert[hidden] { display: none; }
+  .kw-alert .kw-txt { flex: 1; font-size: 13px; color: #6B5518; line-height: 1.4; }
+  .kw-alert .kw-txt b { color: #4E3E0C; }
+  .kw-alert .kw-btn { flex: none; border: none; background: #E0A924; color: #fff; font-family: inherit; font-size: 12.5px; font-weight: 700; padding: 8px 13px; border-radius: 999px; cursor: pointer; white-space: nowrap; transition: filter .12s, transform .12s; display: inline-flex; align-items: center; gap: 4px; }
+  .kw-alert .kw-btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
+  .kw-alert .kw-btn.on { background: #fff; color: #B4832A; border: 1px solid #E0A924; }
+  .tip-row { display: flex; gap: 13px; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 12px; text-decoration: none; color: inherit; transition: box-shadow .14s, transform .12s; }
+  .tip-row:hover { box-shadow: 0 5px 16px rgba(0,0,0,.07); transform: translateY(-1px); }
+  .tip-row.soon { opacity: .6; pointer-events: none; }
+  .tip-thumb { flex: none; width: 76px; height: 76px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 34px; }
+  .tip-body { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+  .tip-cat { font-size: 11px; font-weight: 700; color: var(--green); margin-bottom: 3px; }
+  .tip-cat.soon { color: var(--ink-faint); }
+  .tip-title { font-weight: 700; font-size: 15px; line-height: 1.35; margin: 0 0 4px; color: var(--ink); }
+  .tip-desc { font-size: 12.5px; color: var(--ink-soft); line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .fav-tab-count[hidden] { display: none; }
-  .disc { background: var(--coral); color: #fff; font-size: 13px; font-weight: 700; padding: 3px 9px; border-radius: 8px; }
-  .grade { font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 8px; }
+  .badge-col { position: absolute; top: 10px; left: 10px; z-index: 2; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+  .disc, .grade { min-width: 62px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; height: 26px; padding: 0 8px; border-radius: 8px; font-weight: 700; font-size: 12.5px; line-height: 1; letter-spacing: -0.03em; border: 1px solid rgba(0,0,0,.06); }
+  .disc { background: var(--coral); color: #fff; border-color: rgba(0,0,0,.10); }
+  .grade { }
+  .grade.hot { background: #FBE3DC; color: #B23A20; border-color: rgba(178,58,32,.18); }
+  .grade.good { background: #E4F1D8; color: #2E6B4D; border-color: rgba(46,107,77,.18); }
+  .grade.gold { background: #FBF0CE; color: #9A6B0E; border-color: rgba(154,107,14,.20); }
   .fav-btn { position: absolute; top: 8px; right: 8px; width: 34px; height: 34px; border: none; border-radius: 50%; background: rgba(255,255,255,.9); backdrop-filter: blur(2px); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 3; box-shadow: 0 2px 6px rgba(0,0,0,.12); transition: transform .12s; padding: 0; }
   .fav-btn:hover { transform: scale(1.08); }
   .fav-btn:active { transform: scale(.92); }
@@ -181,9 +211,6 @@
   .fav-btn .heart { fill: none; stroke: #9C927F; stroke-width: 2; transition: fill .15s, stroke .15s; }
   .fav-btn[aria-pressed="true"] .heart { fill: #FF4757; stroke: #FF4757; animation: favpop .3s; }
   @keyframes favpop { 0%{transform:scale(1)} 40%{transform:scale(1.35)} 100%{transform:scale(1)} }
-  .grade.hot { background: #FBE3DC; color: #B23A20; }
-  .grade.good { background: #E4F1D8; color: #2E6B4D; }
-  .grade.gold { background: #FBF0CE; color: #9A6B0E; }
   .grade-inline { font-size: 11.5px; font-weight: 600; padding: 2px 8px; border-radius: 6px; width: fit-content; }
   .grade-inline.hot { background: #FBE3DC; color: #B23A20; }
   .grade-inline.good { background: #E4F1D8; color: #2E6B4D; }
@@ -395,6 +422,7 @@
 </header>
 
 <main>
+  <div class="wrap"><div class="kw-notify" id="kwNotify" hidden></div></div>
   <section class="hero">
     <div class="wrap">
       <p class="hero-prompt">무엇을 찾고 계세요? 검색하거나 아래에서 둘러보세요.</p>
@@ -411,10 +439,10 @@
     <button class="tab" type="button" data-tab="all" aria-selected="true"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>전체보기</button>
     <button class="tab" type="button" data-tab="jjin" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>실시간 타임딜</button>
     <button class="tab" type="button" data-tab="live" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg>오늘의 할인딜</button>
-    <button class="tab" type="button" data-tab="fav" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.4 3-5.5A3.5 3.5 0 0 0 12 5 3.5 3.5 0 0 0 2 8.5c0 2.1 1.5 4 3 5.5l7 7Z"/></svg>찜<span id="favTabCount" class="fav-tab-count" hidden></span></button>
     <button class="tab" type="button" data-tab="single" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7S9 2 6.5 4.5 12 7 12 7Z"/><path d="M12 7s3-5 5.5-2.5S12 7 12 7Z"/></svg>바이웰 단독</button>
     <button class="tab" type="button" data-tab="notice" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l4 4V6L6 10H4a1 1 0 0 0-1 1Z"/><path d="M15.5 8.5a4 4 0 0 1 0 7"/><path d="M18.5 6a7 7 0 0 1 0 12"/></svg>공지사항</button>
     <button class="tab" type="button" data-tab="tips" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>육아 꿀팁</button>
+    <button class="tab tab-fav" type="button" data-tab="fav" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="currentColor"><path d="M12 20.5 3.8 12.3a5 5 0 0 1 7.1-7.05L12 6.35l1.1-1.1a5 5 0 0 1 7.1 7.05Z"/></svg>찜<span id="favTabCount" class="fav-tab-count" hidden></span></button>
   </nav>
 
   <div class="tab-panel active" id="panel-all">
@@ -523,6 +551,7 @@
       </div>
       <p class="note">지금 보이는 상품과 가격 추이는 예시예요. 실제 딜과 그래프는 곧 자동으로 채워집니다.</p>
       <p class="count" id="count"></p>
+      <div class="kw-alert" id="kwAlert" hidden></div>
       <div class="grid" id="grid"></div>
       <nav class="pager" id="pager" aria-label="페이지 이동"></nav>
     </section>
@@ -575,29 +604,12 @@
   </div>
 
   <div class="tab-panel" id="panel-tips">
-    <section class="wrap" style="padding:24px 20px 10px;">
-      <div style="margin-bottom:16px;">
-        <h2 style="font-family:'Gowun Batang',serif;font-weight:700;font-size:20px;margin:0 0 4px;color:var(--ink);">📚 육아 꿀팁</h2>
-        <p style="font-size:13px;color:var(--ink-soft);margin:0;">쇼핑하며 알아두면 좋은 육아 정보를 모았어요. 곧 채워질 거예요!</p>
+    <section class="wrap" style="padding:24px 20px 30px;">
+      <div style="margin-bottom:18px;">
+        <h2 style="font-family:'Gowun Batang',serif;font-weight:700;font-size:21px;margin:0 0 4px;color:var(--ink);">📚 육아 꿀팁</h2>
+        <p style="font-size:13px;color:var(--ink-soft);margin:0;">쇼핑하며 알아두면 좋은 육아 정보를 모았어요.</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">
-        <a href="https://bwlw.kr/tips/bunyu-dange.html" style="text-decoration:none;color:inherit;"><article style="background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer;transition:.15s;" onmouseover="this.style.boxShadow='0 4px 14px rgba(0,0,0,.08)'" onmouseout="this.style.boxShadow='none'">
-          <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#E1EFFB,#C7DFF5);display:flex;align-items:center;justify-content:center;font-size:46px;">🍼</div>
-          <div style="padding:10px 12px 13px;"><h3 style="font-size:13.5px;font-weight:600;margin:0 0 3px;color:var(--ink);line-height:1.35;">분유 단계 가이드</h3><p style="font-size:11.5px;color:var(--green-deep);margin:0;font-weight:600;">가이드 보기 →</p></div>
-        </article></a>
-        <article style="background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;">
-          <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#F7EFDB,#EED9A8);display:flex;align-items:center;justify-content:center;font-size:46px;">💳</div>
-          <div style="padding:10px 12px 13px;"><h3 style="font-size:13.5px;font-weight:600;margin:0 0 3px;color:var(--ink);line-height:1.35;">카드사별 알뜰 쇼핑 팁</h3><p style="font-size:11.5px;color:var(--ink-faint);margin:0;">카드뉴스 · 곧 공개</p></div>
-        </article>
-        <a href="https://bwlw.kr/tips/gijeogwi-size.html" style="text-decoration:none;color:inherit;"><article style="background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer;transition:.15s;" onmouseover="this.style.boxShadow='0 4px 14px rgba(0,0,0,.08)'" onmouseout="this.style.boxShadow='none'">
-          <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#FBE3DC,#F3C3B4);display:flex;align-items:center;justify-content:center;font-size:46px;">🧷</div>
-          <div style="padding:10px 12px 13px;"><h3 style="font-size:13.5px;font-weight:600;margin:0 0 3px;color:var(--ink);line-height:1.35;">기저귀 사이즈 가이드</h3><p style="font-size:11.5px;color:var(--green-deep);margin:0;font-weight:600;">가이드 보기 →</p></div>
-        </article></a>
-        <article style="background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;">
-          <div style="aspect-ratio:1/1;background:linear-gradient(135deg,#EDF1FC,#CBD8F5);display:flex;align-items:center;justify-content:center;font-size:46px;">🌙</div>
-          <div style="padding:10px 12px 13px;"><h3 style="font-size:13.5px;font-weight:600;margin:0 0 3px;color:var(--ink);line-height:1.35;">밤수유·수면 노하우</h3><p style="font-size:11.5px;color:var(--ink-faint);margin:0;">카드뉴스 · 곧 공개</p></div>
-        </article>
-      </div>
+      <div id="tips-list" class="tips-list"></div>
     </section>
   </div>
 </main>
@@ -665,6 +677,17 @@
         var list = this.getKeywords().filter(function (x) { return x !== kw; });
         write("keywords", list);
       },
+      // 이미 사용자에게 보여준(=본) 딜 키 기록 — 새 딜 판별용
+      getSeen: function () { return read("seenDeals", {}); },
+      markSeen: function (keys) {
+        var seen = this.getSeen();
+        keys.forEach(function (k) { if (k) seen[k] = 1; });
+        // 너무 커지지 않게 최근 1000개만 유지
+        var ks = Object.keys(seen);
+        if (ks.length > 1000) { var trimmed = {}; ks.slice(-1000).forEach(function (k) { trimmed[k] = 1; }); seen = trimmed; }
+        write("seenDeals", seen);
+      },
+      isSeen: function (key) { return !!this.getSeen()[key]; },
 
       // ── 👀 최근 본 상품 (나중 단계) ──
       pushRecent: function (d) {
@@ -866,13 +889,13 @@
     }
     return p;
   }
-  var sproutIco = '<svg width="12" height="12" viewBox="0 0 24 24" style="vertical-align:-2px;margin-right:3px;"><path d="M4 20 C4 10 13 3 22 2 C21 12 13 20 4 20 Z" fill="#2E6B4D"/><path d="M6 18 C10 14 15 9 20 5" stroke="#E4F1D8" stroke-width="1.4" fill="none" opacity=".7"/></svg>';
-  var goldIco = '<svg width="12" height="12" viewBox="0 0 24 24" style="vertical-align:-2px;margin-right:3px;"><rect x="5" y="11.5" width="14" height="8.5" rx="1" fill="#E0A924"/><rect x="3.5" y="8" width="17" height="4" rx="1" fill="#B8860B"/><rect x="10.7" y="8" width="2.6" height="12" fill="#FBF0CE"/><path d="M12 8 C10.8 5.4 7.4 5.8 7.8 7.4 C8.1 8.6 10.4 8.2 12 8 Z" fill="#B8860B"/><path d="M12 8 C13.2 5.4 16.6 5.8 16.2 7.4 C15.9 8.6 13.6 8.2 12 8 Z" fill="#B8860B"/><path d="M19.3 3.5 L20 5.2 L21.7 5.9 L20 6.6 L19.3 8.3 L18.6 6.6 L16.9 5.9 L18.6 5.2 Z" fill="#E0A924"/></svg>';
-  var flameIco = '<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px;margin-right:3px;"><path d="M12 23c-4.4 0-8-3.5-8-7.9 0-2.6 1.3-4.9 3-6.8 1.8-2 2.7-4 2.4-6.6-.05-.5.5-.85.9-.55 2.6 1.9 4.6 4.7 4.6 7.6 0 .9-.2 1.7-.5 2.4.9-.5 1.5-1.5 1.7-2.9.08-.5.7-.65 1-.25C21.4 11 22 13 22 15.1c0 4.4-3.6 7.9-8 7.9Zm0-2.5c1.9 0 3.5-1.5 3.5-3.4 0-1.1-.5-2-1.3-2.9-.4.5-1 .8-1.7.8.7-1.6.3-3-.6-4.2-.5 1.6-1.5 2.5-2.4 3.4-.9.9-1.5 1.9-1.5 2.9 0 1.9 1.6 3.4 3.5 3.4Z"/></svg>';
+  var sproutIco = '<svg width="12" height="12" viewBox="0 0 24 24" style="vertical-align:-2px;margin-right:2px;"><path d="M4 20 C4 10 13 3 22 2 C21 12 13 20 4 20 Z" fill="#2E6B4D"/><path d="M6 18 C10 14 15 9 20 5" stroke="#E4F1D8" stroke-width="1.4" fill="none" opacity=".7"/></svg>';
+  var goldIco = '<svg width="12" height="12" viewBox="0 0 24 24" style="vertical-align:-2px;margin-right:2px;"><rect x="5" y="11.5" width="14" height="8.5" rx="1" fill="#E0A924"/><rect x="3.5" y="8" width="17" height="4" rx="1" fill="#B8860B"/><rect x="10.7" y="8" width="2.6" height="12" fill="#FBF0CE"/><path d="M12 8 C10.8 5.4 7.4 5.8 7.8 7.4 C8.1 8.6 10.4 8.2 12 8 Z" fill="#B8860B"/><path d="M12 8 C13.2 5.4 16.6 5.8 16.2 7.4 C15.9 8.6 13.6 8.2 12 8 Z" fill="#B8860B"/><path d="M19.3 3.5 L20 5.2 L21.7 5.9 L20 6.6 L19.3 8.3 L18.6 6.6 L16.9 5.9 L18.6 5.2 Z" fill="#E0A924"/></svg>';
+  var flameIco = '<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px;margin-right:2px;"><path d="M12 23c-4.4 0-8-3.5-8-7.9 0-2.6 1.3-4.9 3-6.8 1.8-2 2.7-4 2.4-6.6-.05-.5.5-.85.9-.55 2.6 1.9 4.6 4.7 4.6 7.6 0 .9-.2 1.7-.5 2.4.9-.5 1.5-1.5 1.7-2.9.08-.5.7-.65 1-.25C21.4 11 22 13 22 15.1c0 4.4-3.6 7.9-8 7.9Zm0-2.5c1.9 0 3.5-1.5 3.5-3.4 0-1.1-.5-2-1.3-2.9-.4.5-1 .8-1.7.8.7-1.6.3-3-.6-4.2-.5 1.6-1.5 2.5-2.4 3.4-.9.9-1.5 1.9-1.5 2.9 0 1.9 1.6 3.4 3.5 3.4Z"/></svg>';
   function gradeBadge(d) {
     if (d.grade === "hot") return '<span class="grade hot">' + flameIco + '핫딜</span>';
     if (d.grade === "good") return '<span class="grade good">' + sproutIco + '굿딜</span>';
-    if (d.grade === "gold") return '<span class="grade gold">' + goldIco + '골드박스</span>';
+    if (d.grade === "gold") return '<span class="grade gold">' + goldIco + '골드</span>';
     return '';
   }
   function gradeInline(d) {
@@ -913,7 +936,7 @@
     var favHtml = '<button class="fav-btn" type="button" aria-pressed="' + (isFav ? 'true' : 'false') + '" title="찜하기" onclick="toggleFav(this)"' +
       ' data-title="' + escAttr(d.title) + '" data-now="' + d.now + '" data-was="' + d.was + '"' +
       ' data-url="' + escAttr(d.buyurl || '') + '" data-mall="' + escAttr(d.mall || 'etc') + '" data-photo="' + escAttr(d.photo || '') + '">' +
-      '<svg viewBox="0 0 24 24"><path class="heart" d="M12 21s-7.5-4.6-10-9.3C.4 8.4 1.9 5 5.2 5c2 0 3.3 1.2 3.8 2.3h.02C9.5 6.2 10.8 5 12.8 5 16.1 5 17.6 8.4 16 11.7 13.5 16.4 12 21 12 21z"/></svg>' +
+      '<svg viewBox="0 0 24 24"><path class="heart" d="M12 20.5 3.8 12.3a5 5 0 0 1 7.1-7.05L12 6.35l1.1-1.1a5 5 0 0 1 7.1 7.05Z"/></svg>' +
       '</button>';
     el.innerHTML =
       '<div class="thumb" style="background:' + hexWash(p.color) + '">' +
@@ -995,6 +1018,42 @@
   var tagClearBtn = document.getElementById("tagClear");
   if (tagClearBtn) tagClearBtn.addEventListener("click", clearTag);
 
+  // 🔔 검색어 키워드 알림 바
+  function renderKwAlert(resultCount) {
+    var bar = document.getElementById("kwAlert");
+    if (!bar) return;
+    var q = (state.q || "").trim();
+    if (!q) { bar.hidden = true; return; }
+    bar.hidden = false;
+    var saved = bwlwStore.getKeywords().indexOf(q) > -1;
+    if (saved) {
+      bar.innerHTML =
+        '<span class="kw-txt"><b>‘' + esc(q) + '’</b> 알림을 받고 있어요. 새 딜이 올라오면 알려드릴게요.</span>' +
+        '<button class="kw-btn on" type="button" onclick="toggleKeyword()">✓ 알림 중</button>';
+    } else {
+      bar.innerHTML =
+        '<span class="kw-txt"><b>‘' + esc(q) + '’</b> 딜, 새로 올라오면 알림 받을까요?</span>' +
+        '<button class="kw-btn" type="button" onclick="toggleKeyword()">🔔 알림 받기</button>';
+    }
+  }
+  window.toggleKeyword = function () {
+    var q = (state.q || "").trim();
+    if (!q) return;
+    var saved = bwlwStore.getKeywords().indexOf(q) > -1;
+    if (saved) { bwlwStore.removeKeyword(q); if (window.toast) window.toast("‘" + q + "’ 알림을 껐어요"); }
+    else {
+      bwlwStore.addKeyword(q);
+      // 저장 시점의 현재 딜은 '이미 본 것'으로 처리 → 이후 올라오는 새 딜만 알림
+      var lc = q.toLowerCase();
+      var cur = (window.PINNED || []).concat(window.DEALS || [])
+        .filter(function (d) { return (d.title || "").toLowerCase().indexOf(lc) > -1; })
+        .map(function (d) { return bwlwStore.dealKey(d); });
+      bwlwStore.markSeen(cur);
+      if (window.toast) window.toast("‘" + q + "’ 알림을 켰어요 🔔");
+    }
+    renderKwAlert();
+  };
+
   function render() {
     Array.prototype.forEach.call(chips.children, function (c) {
       c.setAttribute("aria-pressed", c.dataset.id === state.platform ? "true" : "false");
@@ -1013,6 +1072,7 @@
     }
     var where = state.platform === "all" ? "전체 플랫폼" : P[state.platform].name;
     count.textContent = where + " · 오늘의 딜 " + list.length + "개";
+    renderKwAlert(list.length);
 
     // 페이지네이션: 20개씩
     var per = state.perPage;
@@ -1125,7 +1185,51 @@
     if (note) note.remove();
     renderFeatured();
     render();
+    checkKeywordDeals();
   }
+
+  // 🔔 저장한 키워드에 해당하는 '새 딜'이 있는지 확인 → 배너 표시
+  function checkKeywordDeals() {
+    var banner = document.getElementById("kwNotify");
+    if (!banner) return;
+    var keywords = bwlwStore.getKeywords();
+    if (!keywords.length) { banner.hidden = true; return; }
+    var all = (window.PINNED || []).concat(window.DEALS || []);
+    var hitKeywords = [];   // 새 딜이 있는 키워드
+    var newCount = 0;
+    var seenNow = [];       // 이번에 매칭된 딜들 (곧 seen 처리)
+    keywords.forEach(function (kw) {
+      var lc = kw.toLowerCase();
+      var matched = all.filter(function (d) { return (d.title || "").toLowerCase().indexOf(lc) > -1; });
+      var fresh = matched.filter(function (d) {
+        var key = bwlwStore.dealKey(d);
+        seenNow.push(key);
+        return key && !bwlwStore.isSeen(key);
+      });
+      if (fresh.length) { hitKeywords.push(kw); newCount += fresh.length; }
+    });
+    if (!newCount) { banner.hidden = true; bwlwStore.markSeen(seenNow); return; }
+    var kwText = hitKeywords.slice(0, 3).map(function (k) { return "‘" + esc(k) + "’"; }).join(", ");
+    banner.hidden = false;
+    banner.innerHTML =
+      '<span class="kn-ico">🔔</span>' +
+      '<span class="kn-txt"><b>' + kwText + '</b> 새 딜 ' + newCount + '개가 올라왔어요!</span>' +
+      '<button class="kn-go" type="button" onclick="goKeywordDeals(\'' + esc(hitKeywords[0]).replace(/'/g, "\\'") + '\')">보러가기</button>' +
+      '<button class="kn-close" type="button" aria-label="닫기" onclick="dismissKwNotify()">×</button>';
+    // 배너를 띄운 뒤엔 본 것으로 처리 (다음 방문 때 또 안 뜨게)
+    bwlwStore.markSeen(seenNow);
+  }
+  window.goKeywordDeals = function (kw) {
+    var box = document.getElementById("q");
+    if (box) box.value = kw;
+    state.q = kw; state.page = 1; render();
+    var lt = document.querySelector('.tab[data-tab="live"]'); if (lt) lt.click();
+    var anchor = document.getElementById("deals"); if (anchor) anchor.scrollIntoView({ behavior: "smooth", block: "start" });
+    dismissKwNotify();
+  };
+  window.dismissKwNotify = function () {
+    var b = document.getElementById("kwNotify"); if (b) b.hidden = true;
+  };
   function escHtml(s) { var d = document.createElement("div"); d.textContent = (s == null ? "" : String(s)); return d.innerHTML; }
   function escAttr(s) { return escHtml(s).replace(/"/g, "&quot;").replace(/'/g, "&#39;"); }
   function evDday(endTs) {
@@ -1406,12 +1510,11 @@
     startTimers();
   }
 
-  // 찜 개수 배지 갱신
+  // 찜 개수 배지 갱신 (찜 탭)
   function updateFavCount() {
     var n = bwlwStore.favoriteCount();
     var b = document.getElementById("favTabCount");
     if (b) { if (n > 0) { b.textContent = n; b.hidden = false; } else { b.hidden = true; } }
-    // 찜 탭이 열려 있으면 목록도 갱신
     var favPanel = document.getElementById("panel-fav");
     if (favPanel && favPanel.classList.contains("active")) renderFavorites();
   }
@@ -1531,6 +1634,33 @@
   loadSingles();
   loadNotices();
   if (window.updateFavCount) updateFavCount();
+
+  // ── 📚 육아 꿀팁 게시판 (블로그형) ──
+  // 새 글은 이 목록 맨 위에 한 줄만 추가하면 돼요.
+  var TIPS = [
+    { cat: "사이즈 가이드", title: "기저귀 사이즈 고르는 법 총정리", desc: "신생아부터 특점보까지, 단계별 몸무게 기준과 사이즈 올리는 신호를 색깔로 한눈에.", emoji: "🧷", bg: "linear-gradient(135deg,#FBE3DC,#F3C3B4)", url: "https://bwlw.kr/tips/gijeogwi-size.html" },
+    { cat: "수유 가이드", title: "분유 단계, 언제 바꿀까?", desc: "1~4단계 월령 기준과 천천히 갈아타는 혼합 수유법까지 정리했어요.", emoji: "🍼", bg: "linear-gradient(135deg,#E1EFFB,#C7DFF5)", url: "https://bwlw.kr/tips/bunyu-dange.html" },
+    { cat: "성분 가이드", title: "성분 좋은 물티슈 고르는 법", desc: "피해야 할 성분과 '30초 전성분 확인법'까지. 광고 문구 말고 성분표 보는 법.", emoji: "💧", bg: "linear-gradient(135deg,#DDF3F5,#C3E9EC)", url: "https://bwlw.kr/tips/mulhu-seongbun.html" },
+    { cat: "수면", title: "밤수유 끊고 통잠 재우기", desc: "월령별 수면 패턴과 밤중 수유 줄이는 현실 팁.", emoji: "🌙", bg: "linear-gradient(135deg,#EDF1FC,#CBD8F5)", soon: true },
+    { cat: "알뜰 쇼핑", title: "카드사별 알뜰 쇼핑 팁", desc: "육아용품 살 때 챙기면 좋은 카드 혜택 모음.", emoji: "💳", bg: "linear-gradient(135deg,#F7EFDB,#EED9A8)", soon: true }
+  ];
+  function renderTips() {
+    var box = document.getElementById("tips-list");
+    if (!box) return;
+    box.innerHTML = TIPS.map(function (t) {
+      var soon = !t.url || t.soon;
+      var inner =
+        '<div class="tip-thumb" style="background:' + t.bg + '">' + t.emoji + '</div>' +
+        '<div class="tip-body">' +
+          '<div class="tip-cat' + (soon ? ' soon' : '') + '">' + (soon ? '준비 중' : esc(t.cat)) + '</div>' +
+          '<div class="tip-title">' + esc(t.title) + '</div>' +
+          '<div class="tip-desc">' + esc(t.desc) + '</div>' +
+        '</div>';
+      if (soon) return '<div class="tip-row soon">' + inner + '</div>';
+      return '<a class="tip-row" href="' + t.url + '">' + inner + '</a>';
+    }).join("");
+  }
+  renderTips();
 
   // 외부 링크(?q=기저귀)로 들어오면 자동 검색 + 오늘의 할인딜 탭으로 이동
   (function () {
@@ -1845,6 +1975,7 @@
       toastEl.textContent = msg; toastEl.style.opacity = "1";
       clearTimeout(toastTimer); toastTimer = setTimeout(function () { toastEl.style.opacity = "0"; }, 2000);
     }
+    window.toast = toast;
     // ❤️ 찜하기 토글
     window.toggleFav = function (btn) {
       var d = {

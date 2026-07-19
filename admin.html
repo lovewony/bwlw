@@ -448,22 +448,32 @@
 
   /* ---------- 사진·정상가 자동 채우기 ---------- */
   var API_DEALS = null;
+  var SHEET_DEALS = [];   // 내가 시트에 직접 등록한 딜 (이미지 신뢰도 높음 → 우선 매칭)
   async function loadApiDeals() {
     if (API_DEALS) return API_DEALS;
+    // 시트 딜을 먼저(우선순위 높게), 그다음 API 딜 순으로 담음
     var urls = [
-      "/.netlify/functions/deals_sheet",
+      "/.netlify/functions/deals_sheet",   // 내가 직접 등록한 딜 (이미지 신뢰도 높음)
       "/.netlify/functions/deals",
       "/.netlify/functions/deals_linkprice",
       "/.netlify/functions/deals_coupang"
     ];
-    var all = [];
-    await Promise.all(urls.map(function (u) {
-      return fetch(u).then(function (r) { return r.json(); })
-        .then(function (j) { if (j && j.deals) all = all.concat(j.deals); })
-        .catch(function () {});
-    }));
-    API_DEALS = all;
-    return all;
+    var sheetDeals = [];
+    var otherDeals = [];
+    // 순서 유지를 위해 순차 처리
+    for (var i = 0; i < urls.length; i++) {
+      try {
+        var r = await fetch(urls[i]);
+        var j = await r.json();
+        if (j && j.deals) {
+          if (i === 0) sheetDeals = sheetDeals.concat(j.deals);
+          else otherDeals = otherDeals.concat(j.deals);
+        }
+      } catch (e) {}
+    }
+    SHEET_DEALS = sheetDeals;
+    API_DEALS = sheetDeals.concat(otherDeals);
+    return API_DEALS;
   }
 
   // 두 상품명이 "같은 상품"이라 볼 만큼 충분히 겹치는지 (엄격 매칭)
@@ -639,21 +649,41 @@
     if (!deal.price) { toast("가격을 입력해 주세요"); return; }
     if (!deal.link) { toast("상품 링크를 넣어 주세요"); return; }
 
-    // 중복 확인
+    // ── 중복 확인 ──
+    // 1) 링크가 같으면 확실한 중복  2) 상품명이 충분히 일치하면 유사 중복
+    //    (titleMatch = 8자 미만이면 매칭 안 함 → "하기스 기저귀" 같은 짧은 입력의 오탐 방지)
     try {
       var dupRes = await fetch("/.netlify/functions/deals_sheet?all=1");
       var dupJson = await dupRes.json();
       var existing = (dupJson && dupJson.deals) ? dupJson.deals : [];
-      var sameLink = existing.some(function (x) { return x.buyurl && x.buyurl === deal.link; });
-      if (sameLink) {
-        if (!confirm("⚠️ 이미 같은 링크의 딜이 등록돼 있어요.\n그래도 등록할까요?")) return;
+
+      var linkHit = deal.link ? existing.find(function (x) { return x.buyurl && x.buyurl === deal.link; }) : null;
+      if (linkHit) {
+        if (!confirm(
+          "⚠️ 이미 같은 링크의 딜이 있어요.\n\n" +
+          "기존: " + (linkHit.title || "(제목 없음)") + "\n" +
+          (linkHit.now ? "가격: " + Number(linkHit.now).toLocaleString() + "원\n" : "") +
+          "\n그래도 등록할까요?"
+        )) return;
       } else {
-        var key = deal.title.replace(/\s+/g, "").slice(0, 12);
-        var similar = existing.some(function (x) {
-          return key && (x.title || "").replace(/\s+/g, "").indexOf(key) > -1;
-        });
-        if (similar) {
-          if (!confirm("비슷한 상품이 이미 있어요.\n그래도 등록할까요?")) return;
+        var titleHit = existing.find(function (x) { return titleMatch(deal.title, x.title); });
+        if (titleHit) {
+          var priceMsg = "";
+          if (titleHit.now && deal.price) {
+            var oldP = Number(titleHit.now), newP = Number(String(deal.price).replace(/[^0-9]/g, ""));
+            if (oldP && newP) {
+              priceMsg = "기존 가격: " + oldP.toLocaleString() + "원\n"
+                       + "지금 가격: " + newP.toLocaleString() + "원"
+                       + (newP < oldP ? " (↓ " + (oldP - newP).toLocaleString() + "원 내림)"
+                          : newP > oldP ? " (↑ " + (newP - oldP).toLocaleString() + "원 오름)" : " (동일)") + "\n";
+            }
+          }
+          if (!confirm(
+            "비슷한 상품이 이미 등록돼 있어요.\n\n" +
+            "기존: " + (titleHit.title || "(제목 없음)") + "\n" +
+            priceMsg +
+            "\n그래도 등록할까요?"
+          )) return;
         }
       }
     } catch (e) { /* 중복 확인 실패해도 등록은 진행 */ }
