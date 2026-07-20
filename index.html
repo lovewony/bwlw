@@ -223,7 +223,10 @@
   .prices { display: flex; align-items: baseline; gap: 8px; }
   .now { font-size: 19px; font-weight: 700; color: var(--ink); }
   .was { font-size: 13px; color: var(--ink-faint); text-decoration: line-through; }
-  .save { display: inline-block; font-size: 12.5px; color: var(--honey); background: var(--honey-wash); padding: 3px 9px; border-radius: 7px; font-weight: 600; width: fit-content; }
+  .save-row { display: flex; align-items: center; gap: 6px; width: 100%; }
+  .save { display: inline-flex; align-items: center; height: 23px; box-sizing: border-box; font-size: 12px; color: var(--honey); background: var(--honey-wash); padding: 0 8px; border-radius: 7px; font-weight: 600; letter-spacing: -0.02em; white-space: nowrap; }
+  .disc-inline { display: inline-flex; align-items: center; gap: 3px; height: 23px; box-sizing: border-box; margin-left: auto; font-size: 12px; color: #B23A20; background: #FBE3DC; padding: 0 8px; border-radius: 7px; font-weight: 700; letter-spacing: -0.02em; white-space: nowrap; }
+  .di-arrow { width: 11px; height: 11px; flex: none; }
   .card-info { display: flex; align-items: flex-start; gap: 5px; font-size: 12px; color: #3A5BC7; background: #EDF1FC; border: 1px solid #DCE4F7; padding: 5px 9px; border-radius: 8px; width: fit-content; line-height: 1.4; }
   .card-info span { font-weight: 600; }
   .spark { margin-top: auto; padding-top: 4px; }
@@ -926,7 +929,8 @@
     var el = document.createElement("article"); el.className = "deal";
     var endHtml = d.ends ? '<span class="timer" data-ends="' + d.ends + '">마감까지 --:--</span>'
       : (d.endTs ? '<span class="timer" data-endts="' + d.endTs + '">마감까지 --:--</span>' : "");
-    var discHtml = discPct(d) > 0 ? '<span class="disc">' + discPct(d) + '%</span>' : '';
+    var downIco = '<svg class="di-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg>';
+    var discHtml = discPct(d) > 0 ? '<span class="disc-inline">' + downIco + discPct(d) + '%</span>' : '';
     var saveHtml = saved(d) > 0 ? '<span class="save">' + won(saved(d)) + ' 아낌</span>' : '';
     var cmpHtml = (d.variants && d.variants.length > 1) ? '<span style="font-size:11.5px;color:var(--green);font-weight:600;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="vertical-align:-1px;margin-right:2px;"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>' + d.variants.length + '곳 비교 · 최저가</span>' : '';
     var cardHtml = d.cardInfo ? '<div class="card-info"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex:none;margin-top:1px;"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg><span>' + d.cardInfo + '</span></div>' : '';
@@ -940,13 +944,16 @@
       '</button>';
     el.innerHTML =
       '<div class="thumb" style="background:' + hexWash(p.color) + '">' +
-        '<div class="badge-col">' + discHtml + gradeBadge(d) + '</div>' + favHtml + thumbInner(d) + endHtml +
+        '<div class="badge-col">' + gradeBadge(d) + '</div>' + favHtml + thumbInner(d) + endHtml +
       '</div>' +
       '<div class="deal-body">' +
         '<span class="mall">' + pBadge(p, 16) + p.name + '</span>' +
         '<h3 class="title">' + d.title + '</h3>' +
         '<div class="prices"><span class="now">' + won(d.now) + (d.hasOptions ? '~' : '') + '</span>' + (d.was > d.now ? '<span class="was">' + won(d.was) + '</span>' : '') + '</div>' +
-        '<div class="meta-row">' + saveHtml + optHtml + cmpHtml + cardHtml + '</div>' +
+        '<div class="meta-row">' +
+          ((saveHtml || discHtml) ? '<div class="save-row">' + saveHtml + discHtml + '</div>' : '') +
+          optHtml + cmpHtml + cardHtml +
+        '</div>' +
         '<div class="btn-row">' +
           '<a class="go" href="' + href + '" target="_blank" rel="noopener" style="text-decoration:none;">보러 가기</a>' +
           '<button class="share-btn" type="button" onclick="shareDeal(this)" title="상품명 + 링크 복사"' +
