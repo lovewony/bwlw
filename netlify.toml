@@ -4,6 +4,11 @@
 [functions]
   node_bundler = "esbuild"
 
+# 가격 기록: 매일 한 번 자동 실행 (UTC 00:00 = 한국시간 오전 9시)
+# 시트에 등록된 딜들의 그날 가격을 '가격기록' 탭에 쌓아둡니다.
+[functions."price_snapshot"]
+  schedule = "0 0 * * *"
+
 # 예전 netlify 주소로 들어오면 대표 도메인(bwlw.kr)으로 자동 이동 — SEO 점수 통일
 [[redirects]]
   from = "https://bwlw.netlify.app/*"
