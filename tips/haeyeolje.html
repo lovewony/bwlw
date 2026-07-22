@@ -27,33 +27,26 @@
 }
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet" />
 <style>
-  @font-face {
-    font-family: 'NanumBarunpen';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumBarunpen.woff') format('woff');
-    font-weight: normal; font-display: swap;
-  }
-  @font-face {
-    font-family: 'NanumBarunpen';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/NanumBarunpenB.woff') format('woff');
-    font-weight: bold; font-display: swap;
-  }
+  /* 페이퍼로지 (SIL OFL · 상업적 웹 사용 가능) — 한글·영문·숫자 모두 지원 */
+  @font-face { font-family:'Paperlogy'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+  @font-face { font-family:'Paperlogy'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
+  @font-face { font-family:'Paperlogy'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2'); font-weight:800; font-display:swap; }
+</style>
+<style>
   :root {
     --paper: #FBFAF7;
     --ink: #262420; --ink-soft: #5F5A52; --ink-faint: #98918A;
     --card: #FFFFFF; --line: #ECE7DE;
     --green: #2E6B4D; --green-deep: #1F4D38;
-    --yellow: #E8B23C; --yellow-b: #FDF3DA;   /* 아세트아미노펜 = 노랑 */
-    --blue:   #4E8FD1; --blue-b:   #E3EFFA;   /* 이부프로펜 = 파랑 */
+    --acet: #E24B4B; --acet-b: #FDEAEA;   /* 아세트아미노펜 = 빨강 (챔프 빨간색) */
+    --blue:   #4E8FD1; --blue-b:   #E3EFFA;   /* 이부프로펜 = 파랑 (챔프 파란색) */
     --red:    #D9534F; --red-b:    #FCE9E8;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0; background: var(--paper); color: var(--ink);
-    font-family: "NanumBarunpen", system-ui, sans-serif; line-height: 1.8; font-size: 16.5px;
+    font-family: "Paperlogy", system-ui, sans-serif; line-height: 1.8; font-size: 16.5px;
     -webkit-font-smoothing: antialiased;
     background-image: radial-gradient(circle at 13% 6%, #FDF3DA55 0 26%, transparent 26%), radial-gradient(circle at 87% 18%, #E3EFFA55 0 22%, transparent 22%);
     background-attachment: fixed;
@@ -61,23 +54,23 @@
   .wrap { max-width: 720px; margin: 0 auto; padding: 0 18px; }
 
   header.site { padding: 16px 0 6px; }
-  .logo-wm { font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 22px; color: var(--ink); text-decoration: none; }
+  .logo-wm { font-family: "Paperlogy", sans-serif; font-weight: 800; font-size: 22px; color: var(--ink); text-decoration: none; }
   .logo-wm b { color: var(--green); }
   nav.crumb { font-size: 12.5px; color: var(--ink-faint); margin-top: 10px; }
   nav.crumb a { color: var(--green-deep); text-decoration: none; }
 
   .hero { text-align: center; padding: 26px 0 8px; }
   .hero .kicker {
-    display: inline-block; font-family: "Baloo 2", sans-serif; font-weight: 700;
+    display: inline-block; font-family: "Paperlogy", sans-serif; font-weight: 700;
     font-size: 12.5px; letter-spacing: .04em; color: #B07A16;
-    background: var(--yellow-b); padding: 5px 14px; border-radius: 999px; margin-bottom: 16px;
+    background: var(--acet-b); padding: 5px 14px; border-radius: 999px; margin-bottom: 16px;
   }
   h1 {
-    font-family: "Baloo 2", sans-serif; font-weight: 800;
+    font-family: "Paperlogy", sans-serif; font-weight: 800;
     font-size: clamp(26px, 6vw, 34px); line-height: 1.28; margin: 0 0 12px; color: var(--ink);
   }
   h1 .hl { position: relative; white-space: nowrap; }
-  h1 .hl::after { content: ""; position: absolute; left: -2px; right: -2px; bottom: 4px; height: 12px; background: var(--yellow); z-index: -1; border-radius: 4px; opacity: .45; }
+  h1 .hl::after { content: ""; position: absolute; left: -2px; right: -2px; bottom: 4px; height: 12px; background: var(--acet); z-index: -1; border-radius: 4px; opacity: .45; }
   .hero p.lead { font-size: 15.5px; color: var(--ink-soft); margin: 0 auto; max-width: 30em; }
 
   /* 최상단 안내 */
@@ -90,7 +83,7 @@
 
   section { margin: 34px 0; }
   h2 {
-    font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 22px; color: var(--ink);
+    font-family: "Paperlogy", sans-serif; font-weight: 800; font-size: 22px; color: var(--ink);
     margin: 0 0 6px; display: flex; align-items: center; gap: 9px;
   }
   h2 .emoji { font-size: 22px; }
@@ -98,22 +91,22 @@
   p { font-size: 15.5px; color: var(--ink-soft); margin: 0 0 14px; }
 
   /* 열은 나쁜 게 아니다 박스 */
-  .fever-box { background: linear-gradient(135deg, var(--yellow-b), #FFF9EC); border-radius: 20px; padding: 22px; }
+  .fever-box { background: linear-gradient(135deg, var(--acet-b), #FFF9EC); border-radius: 20px; padding: 22px; }
   .fever-box h2 { color: #A9741A; }
   .temp-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 16px; }
   .temp { background: #fff; border-radius: 16px; padding: 15px; text-align: center; }
-  .temp .t { font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 21px; color: #A9741A; }
+  .temp .t { font-family: "Paperlogy", sans-serif; font-weight: 800; font-size: 21px; color: #A9741A; }
   .temp .d { font-size: 12.5px; color: var(--ink-soft); margin-top: 4px; line-height: 1.5; }
 
   /* 두 종류 비교 */
   .meds { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .med { border-radius: 20px; padding: 18px; }
-  .med.acet { background: var(--yellow-b); }
+  .med.acet { background: var(--acet-b); }
   .med.ibu  { background: var(--blue-b); }
-  .med .pill { display: inline-flex; align-items: center; gap: 6px; font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 14px; padding: 5px 12px; border-radius: 999px; color: #fff; }
-  .med.acet .pill { background: var(--yellow); }
+  .med .pill { display: inline-flex; align-items: center; gap: 6px; font-family: "Paperlogy", sans-serif; font-weight: 800; font-size: 14px; padding: 5px 12px; border-radius: 999px; color: #fff; }
+  .med.acet .pill { background: var(--acet); }
   .med.ibu  .pill { background: var(--blue); }
-  .med h3 { margin: 10px 0 3px; font-family: "Baloo 2", sans-serif; font-size: 16px; color: var(--ink); }
+  .med h3 { margin: 10px 0 3px; font-family: "Paperlogy", sans-serif; font-size: 16px; color: var(--ink); }
   .med .brand { font-size: 12.5px; color: var(--ink-faint); margin-bottom: 10px; }
   .med dl { margin: 0; font-size: 13.5px; }
   .med dt { font-weight: 700; color: var(--ink); margin-top: 9px; font-size: 12.5px; }
@@ -121,7 +114,7 @@
 
   /* 월령 규칙 */
   .rule { display: flex; gap: 13px; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 15px 17px; margin-bottom: 11px; }
-  .rule .badge { flex: none; width: 46px; height: 46px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 13px; color: #fff; text-align: center; line-height: 1.15; }
+  .rule .badge { flex: none; width: 46px; height: 46px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-family: "Paperlogy", sans-serif; font-weight: 800; font-size: 13px; color: #fff; text-align: center; line-height: 1.15; }
   .rule .txt { flex: 1; font-size: 14.5px; color: var(--ink-soft); }
   .rule .txt b { color: var(--ink); display: block; margin-bottom: 2px; font-size: 15px; }
 
@@ -144,41 +137,41 @@
 
   /* 오해 */
   .myth { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 15px 17px; margin-bottom: 11px; }
-  .myth .q { font-family: "Baloo 2", sans-serif; font-weight: 700; font-size: 15px; color: #B03A36; }
+  .myth .q { font-family: "Paperlogy", sans-serif; font-weight: 700; font-size: 15px; color: #B03A36; }
   .myth .a { font-size: 14px; color: var(--ink-soft); margin-top: 5px; }
   .myth .a b { color: var(--ink); }
 
   .faq details { background: var(--card); border: 1px solid var(--line); border-radius: 16px; margin-bottom: 10px; overflow: hidden; }
-  .faq summary { cursor: pointer; padding: 15px 18px; font-family: "Baloo 2", sans-serif; font-weight: 700; font-size: 15px; color: var(--ink); list-style: none; display: flex; justify-content: space-between; align-items: center; }
+  .faq summary { cursor: pointer; padding: 15px 18px; font-family: "Paperlogy", sans-serif; font-weight: 700; font-size: 15px; color: var(--ink); list-style: none; display: flex; justify-content: space-between; align-items: center; }
   .faq summary::-webkit-details-marker { display: none; }
   .faq summary::after { content: "+"; color: var(--green); font-size: 20px; font-weight: 700; }
   .faq details[open] summary::after { content: "−"; }
   .faq .a { padding: 0 18px 16px; font-size: 14px; color: var(--ink-soft); }
 
   .cta { text-align: center; background: linear-gradient(135deg, #2E6B4D, #37835E); border-radius: 22px; padding: 30px 22px; margin: 36px 0 10px; }
-  .cta h3 { margin: 0 0 6px; font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 21px; color: #fff; }
+  .cta h3 { margin: 0 0 6px; font-family: "Paperlogy", sans-serif; font-weight: 800; font-size: 21px; color: #fff; }
   .cta p { margin: 0 0 18px; font-size: 14px; color: #DCEBE2; }
-  .cta a { display: inline-block; background: #fff; color: var(--green-deep); text-decoration: none; font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 15px; padding: 13px 26px; border-radius: 999px; }
+  .cta a { display: inline-block; background: #fff; color: var(--green-deep); text-decoration: none; font-family: "Paperlogy", sans-serif; font-weight: 800; font-size: 15px; padding: 13px 26px; border-radius: 999px; }
 
   .related { display: flex; align-items: center; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 15px 17px; margin: 20px 0; text-decoration: none; }
   .related .ico { font-size: 28px; flex: none; }
   .related .txt { flex: 1; }
-  .related .txt b { display: block; font-family: "Baloo 2", sans-serif; font-size: 15px; color: var(--ink); }
+  .related .txt b { display: block; font-family: "Paperlogy", sans-serif; font-size: 15px; color: var(--ink); }
   .related .txt span { font-size: 12.5px; color: var(--ink-faint); }
   .related .go { color: var(--green-deep); font-weight: 700; font-size: 18px; }
 
 
   .more-tips { margin: 30px 0 10px; }
-  .more-tips h3 { font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 17px; margin: 0 0 12px; color: var(--ink); }
+  .more-tips h3 { font-family: "Paperlogy", sans-serif; font-weight: 800; font-size: 17px; margin: 0 0 12px; color: var(--ink); }
   .more-tips a { display: flex; align-items: center; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 13px 15px; margin-bottom: 9px; text-decoration: none; transition: transform .12s, box-shadow .12s; }
   .more-tips a:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,.06); }
   .more-tips .ic { font-size: 24px; flex: none; }
   .more-tips .tx { flex: 1; }
-  .more-tips .tx b { display: block; font-family: "Baloo 2", sans-serif; font-size: 14.5px; color: var(--ink); }
+  .more-tips .tx b { display: block; font-family: "Paperlogy", sans-serif; font-size: 14.5px; color: var(--ink); }
   .more-tips .tx span { font-size: 12px; color: var(--ink-faint); }
   .more-tips .go { color: var(--green-deep); font-weight: 700; font-size: 17px; }
   .disclosure { font-size: 11.5px; color: var(--ink-faint); border-top: 1px solid var(--line); margin-top: 34px; padding-top: 16px; line-height: 1.6; }
-  .backlink { display: inline-block; margin-top: 16px; font-size: 13.5px; color: var(--green-deep); text-decoration: none; font-weight: 700; font-family: "Baloo 2", sans-serif; }
+  .backlink { display: inline-block; margin-top: 16px; font-size: 13.5px; color: var(--green-deep); text-decoration: none; font-weight: 700; font-family: "Paperlogy", sans-serif; }
 
   @media (max-width: 520px) { .meds { grid-template-columns: 1fr; } }
 </style>
@@ -220,12 +213,12 @@
 
     <section>
       <h2><span class="emoji">💊</span>해열제는 크게 두 종류</h2>
-      <p class="sub">약 이름은 많아도, 성분은 결국 이 둘로 나뉘어요. 색으로 기억하면 쉬워요.</p>
+      <p class="sub">약 이름은 많아도, 성분은 결국 이 둘로 나뉘어요. 제품 색으로 기억하면 약국에서 헷갈리지 않아요.</p>
       <div class="meds">
         <div class="med acet">
-          <span class="pill">🟡 아세트아미노펜</span>
+          <span class="pill">🔴 아세트아미노펜</span>
           <h3>타이레놀 계열</h3>
-          <div class="brand">챔프 <b>노란색</b>, 콜대원키즈펜 등</div>
+          <div class="brand">챔프 <b>빨간색</b>(글씨는 노란색), 콜대원키즈펜 등</div>
           <dl>
             <dt>먹일 수 있는 나이</dt>
             <dd>보통 생후 4개월부터</dd>
@@ -254,7 +247,7 @@
         </div>
       </div>
       <div class="warnbox">
-        ⚠️ <b>이름이 달라도 성분이 같을 수 있어요.</b> 예를 들어 '챔프 노란색'과 '타이레놀'은 같은 아세트아미노펜이에요. 모르고 둘 다 먹이면 <b>중복 복용</b>이 돼요. 약을 먹이기 전에 항상 <b>성분 이름</b>을 확인하세요.<br><br>
+        ⚠️ <b>이름이 달라도 성분이 같을 수 있어요.</b> 예를 들어 '챔프 빨간색'과 '타이레놀'은 같은 아세트아미노펜이에요. 모르고 둘 다 먹이면 <b>중복 복용</b>이 돼요. 약을 먹이기 전에 항상 <b>성분 이름</b>을 확인하세요.<br><br>
         또 <b>이부프로펜과 덱시부프로펜은 같은 계열</b>이라, 이 둘을 번갈아 먹이는 건 안 돼요.
       </div>
     </section>
@@ -263,11 +256,11 @@
       <h2><span class="emoji">📅</span>월령별 꼭 지킬 규칙</h2>
       <p class="sub">이건 예외 없이 지켜야 하는 부분이에요.</p>
       <div class="rule">
-        <span class="badge" style="background:var(--red)">3개월<br>미만</span>
+        <span class="badge" style="background:#4A4A4A">3개월<br>미만</span>
         <span class="txt"><b>열 자체가 응급 상황이에요</b>38℃ 이상이면 해열제를 먹이기 전에 <b>바로 병원·응급실</b>로 가세요. 이 시기엔 열이 심각한 감염의 신호일 수 있어요.</span>
       </div>
       <div class="rule">
-        <span class="badge" style="background:var(--yellow)">4개월<br>부터</span>
+        <span class="badge" style="background:var(--acet)">4개월<br>부터</span>
         <span class="txt"><b>아세트아미노펜 가능</b>이 시기엔 아세트아미노펜(타이레놀 계열) 단독으로 쓰는 게 기본이에요.</span>
       </div>
       <div class="rule">

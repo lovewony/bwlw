@@ -30,9 +30,56 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20rx%3D%2224%22%20fill%3D%22%232E6B4D%22/%3E%3Cpolyline%20points%3D%2224%2C46%2038%2C72%2051%2C54%2064%2C72%2078%2C46%22%20fill%3D%22none%22%20stroke%3D%22%23FBF7EC%22%20stroke-width%3D%2211%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3Cpath%20d%3D%22M51%2050%20C51%2044%2051%2040%2051%2034%22%20stroke%3D%22%239ECE78%22%20stroke-width%3D%223.2%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M51%2041%20C45%2035%2039%2036%2036%2035%20C37%2041%2043%2044%2051%2041%20Z%22%20fill%3D%22%239ECE78%22/%3E%3Cpath%20d%3D%22M51%2038%20C57%2032%2063%2033%2066%2032%20C65%2038%2059%2041%2051%2038%20Z%22%20fill%3D%22%239ECE78%22/%3E%3C/svg%3E" />
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20rx%3D%2224%22%20fill%3D%22%232E6B4D%22/%3E%3Cpolyline%20points%3D%2224%2C46%2038%2C72%2051%2C54%2064%2C72%2078%2C46%22%20fill%3D%22none%22%20stroke%3D%22%23FBF7EC%22%20stroke-width%3D%2211%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3Cpath%20d%3D%22M51%2050%20C51%2044%2051%2040%2051%2034%22%20stroke%3D%22%239ECE78%22%20stroke-width%3D%223.2%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M51%2041%20C45%2035%2039%2036%2036%2035%20C37%2041%2043%2044%2051%2041%20Z%22%20fill%3D%22%239ECE78%22/%3E%3Cpath%20d%3D%22M51%2038%20C57%2032%2063%2033%2066%2032%20C65%2038%2059%2041%2051%2038%20Z%22%20fill%3D%22%239ECE78%22/%3E%3C/svg%3E" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* 페이퍼로지 (SIL OFL · 상업적 웹 사용 가능) — 한글·영문·숫자 모두 지원 */
+  @font-face { font-family:'Paperlogy'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+  @font-face { font-family:'Paperlogy'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
+  @font-face { font-family:'Paperlogy'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2'); font-weight:800; font-display:swap; }
+
+  /* ===== 하단 탭바 (모바일 전용) ===== */
+  .btmnav, .msheet, .msheet-bg { display: none; }
+  .btmnav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 900;
+    background: rgba(255,255,255,.96); backdrop-filter: saturate(180%) blur(12px);
+    border-top: 1px solid #E9E3D8;
+    padding-bottom: env(safe-area-inset-bottom);
+    box-shadow: 0 -2px 14px rgba(0,0,0,.05); }
+  .btmnav button { position: relative; flex: 1; border: 0; background: none; font-family: inherit; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+    padding: 9px 2px 8px; color: #9A948A; font-size: 11px; font-weight: 600; letter-spacing: -.02em;
+    transition: color .15s, transform .1s; -webkit-tap-highlight-color: transparent; }
+  .btmnav button svg { width: 23px; height: 23px; }
+  .btmnav button.on { color: var(--green-deep); }
+  .btmnav button.on svg { transform: translateY(-1px); }
+  .btmnav button:active { transform: scale(.93); }
+  .btmnav .dot { position: absolute; top: 6px; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--green-deep); opacity: 0; transition: opacity .18s; }
+  .btmnav button.on .dot { opacity: 1; }
+  .msheet-bg { position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 950; opacity: 0;
+    pointer-events: none; transition: opacity .2s; }
+  .msheet-bg.on { opacity: 1; pointer-events: auto; }
+  .msheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 960; background: #fff;
+    border-radius: 22px 22px 0 0; padding: 10px 16px calc(20px + env(safe-area-inset-bottom));
+    transform: translateY(102%); transition: transform .26s cubic-bezier(.3,.9,.3,1); }
+  .msheet.on { transform: translateY(0); }
+  .msheet .handle { width: 40px; height: 4px; border-radius: 999px; background: #DDD6C9; margin: 6px auto 14px; }
+  .msheet h4 { margin: 0 0 10px; font-size: 15px; font-weight: 800; color: var(--ink); }
+  .msheet .mrow { display: flex; align-items: center; gap: 12px; width: 100%;
+    background: #FAF8F3; border: 0; border-radius: 14px; padding: 14px 15px; margin-bottom: 8px;
+    font-family: inherit; font-size: 15px; font-weight: 600; color: var(--ink); text-decoration: none;
+    cursor: pointer; text-align: left; }
+  .msheet .mrow .ic { font-size: 19px; }
+
+  @media (max-width: 1023px) {
+    .btmnav { display: flex; }
+    .msheet { display: block; }
+    .msheet-bg { display: block; }
+    body { padding-bottom: 62px; }
+    .tabs-wrap, .tabs { display: none !important; }
+  }
+</style>
 <style>
   :root {
     --paper: #FFFFFF;
@@ -53,8 +100,8 @@
   }
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
-  body { margin: 0; font-family: "Pretendard", system-ui, sans-serif; background: var(--paper); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-  .serif { font-family: "Gowun Batang", "Pretendard", serif; }
+  body { margin: 0; font-family: "Paperlogy", system-ui, sans-serif; background: var(--paper); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .serif { font-family: "Paperlogy", sans-serif; }
   a { color: inherit; text-decoration: none; }
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
 
@@ -65,7 +112,7 @@
   @media (max-width: 620px) { .disclosure-top p { white-space: normal; } }
   .disclosure-top b { font-weight: 600; color: var(--ink); }
 
-  .logo-wm { font-family: "Baloo 2", sans-serif; font-weight: 800; color: var(--ink); line-height: .9; letter-spacing: -.01em; }
+  .logo-wm { font-family: "Paperlogy", sans-serif; font-weight: 800; color: var(--ink); line-height: .9; letter-spacing: -.01em; }
   .logo-img { width: auto; display: inline-block; vertical-align: middle; }
   .brand { display: flex; flex-direction: column; gap: 3px; }
   .logo-row { display: flex; align-items: flex-end; gap: 2px; }
@@ -74,9 +121,10 @@
   .logo-tag { font-size: 10px; letter-spacing: .16em; color: var(--ink-faint); font-weight: 500; }
 
   .all-sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
-  .all-sec-head h2 { font-family: "Gowun Batang", serif; font-size: 20px; font-weight: 800; color: #B23A20; margin: 0; }
-  .more-btn { flex: none; border: 0; background: transparent; font-family: inherit; font-size: 13px; font-weight: 600; color: var(--green-deep); cursor: pointer; padding: 4px; }
-  .more-btn:hover { color: var(--green); }
+  .all-sec-head h2 { font-family: 'Gowun Batang', serif; font-size: 23px; font-weight: 700; letter-spacing: -.01em; color: #B23A20; margin: 0; }
+  .more-btn { flex: none; border: 1px solid #D8E6DD; background: #F1F7F3; font-family: inherit; font-size: 14px; font-weight: 700; color: var(--green-deep); cursor: pointer; padding: 8px 15px; border-radius: 999px; line-height: 1.2; white-space: nowrap; transition: background .15s, transform .12s; }
+  .more-btn:hover { background: #E3F0E9; transform: translateY(-1px); }
+  .more-btn:active { transform: translateY(0); }
 
   .nophoto { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; padding: 18px; text-align: center; }
   .nophoto-abbr { display: inline-flex; align-items: center; justify-content: center; min-width: 30px; height: 30px; padding: 0 8px; border-radius: 9px; color: #fff; font-size: 13px; font-weight: 800; letter-spacing: -.02em; }
@@ -126,7 +174,11 @@
   .head-left { display: flex; align-items: center; gap: 16px; min-width: 0; }
   .head-divider { width: 1px; align-self: stretch; background: var(--line); margin: 5px 0; flex: none; }
   .head-slogan { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-  .head-h { font-family: "Gowun Batang", serif; font-weight: 700; font-size: 23px; color: var(--ink); line-height: 1.2; }
+
+  /* ── 큰 섹션 대제목만 고운바탕(명조), 나머지는 전부 페이퍼로지 ── */
+  .featured-head .eyebrow,
+  .gonggu-head .eyebrow { font-family: 'Gowun Batang', serif; }
+  .head-h { font-family: "Paperlogy", sans-serif; font-weight: 700; font-size: 23px; color: var(--ink); line-height: 1.2; }
   .head-sub { font-size: 12.5px; color: var(--ink-soft); line-height: 1.4; }
   @media (max-width: 780px) {
     .head-left { flex-direction: column; align-items: flex-start; gap: 8px; }
@@ -142,7 +194,7 @@
   .hero { padding: 38px 0 32px; }
   .hero-prompt { font-size: 14px; color: var(--ink-soft); margin: 0 0 12px; }
   .eyebrow { font-size: 13px; letter-spacing: .14em; color: var(--green); font-weight: 600; }
-  .hero h1 { font-family: "Gowun Batang", serif; font-weight: 700; font-size: 44px; line-height: 1.15; margin: 14px 0 12px; color: var(--ink); }
+  .hero h1 { font-family: "Paperlogy", sans-serif; font-weight: 700; font-size: 44px; line-height: 1.15; margin: 14px 0 12px; color: var(--ink); }
   .hero p.sub { font-size: 17px; color: var(--ink-soft); margin: 0 0 26px; max-width: 32em; }
   @media (max-width: 620px) { .hero h1 { font-size: 30px; } .hero { padding: 34px 0 22px; } }
 
@@ -256,8 +308,24 @@
   .disclosure-foot strong { color: var(--ink-soft); font-weight: 600; display: inline-block; margin-bottom: 6px; }
 
   .events { margin-top: 46px; }
-  .events-head h2 { font-family: "Gowun Batang", serif; font-weight: 700; font-size: 22px; margin: 0 0 4px; color: var(--ink); }
+  .events-head h2 { font-family: 'Gowun Batang', serif; font-weight: 700; font-size: 24px; letter-spacing: -.01em; margin: 0 0 4px; color: var(--ink); }
   .events-head p { margin: 0 0 18px; font-size: 13px; color: var(--ink-soft); }
+
+  /* 실시간 쿠폰 */
+  .cp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 11px; }
+  .cp-card { display: flex; flex-direction: column; gap: 8px; background: var(--card); border: 1px solid var(--line);
+    border-radius: 16px; padding: 15px 16px; text-decoration: none; transition: transform .12s, box-shadow .12s; }
+  .cp-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.07); }
+  .cp-top { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+  .cp-state { display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700;
+    padding: 3px 9px; border-radius: 999px; white-space: nowrap; border: 1px solid transparent; }
+  .cp-state.open { background: #E4F4EA; color: #2E6B4D; border-color: #A9D8BC; }
+  .cp-state.soon { background: #FDF1DC; color: #99691A; border-color: #EBCC93; }
+  .cp-state.upcoming { background: #EEF1F4; color: #5F6B75; border-color: #D3DAE1; }
+  .cp-time { font-size: 11.5px; color: var(--ink-faint); font-weight: 600; }
+  .cp-name { font-size: 14.5px; font-weight: 700; color: var(--ink); line-height: 1.45; }
+  .cp-info { font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; }
+  .cp-go { margin-top: 2px; font-size: 12.5px; font-weight: 700; color: var(--green-deep); }
   .ev-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
   .ev-card { display: flex; gap: 13px; align-items: stretch; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 13px; }
   .ev-thumb { flex: none; width: 66px; height: 66px; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--green-wash); color: var(--ink-soft); font-size: 10.5px; font-weight: 600; text-align: center; line-height: 1.25; padding: 4px; }
@@ -276,7 +344,7 @@
   .gonggu-inner { padding: 22px 20px 12px; }
   .section-divider { border: 0; border-top: 1px solid #CFE0C7; margin: 34px 0; }
   .gonggu-head .eyebrow { color: var(--green); }
-  .gonggu-head h2 { font-family: "Gowun Batang", serif; font-weight: 700; font-size: 26px; margin: 10px 0 6px; color: var(--ink); }
+  .gonggu-head h2 { font-family: 'Gowun Batang', serif; font-weight: 700; font-size: 27px; letter-spacing: -.01em; margin: 10px 0 6px; color: var(--ink); }
   .gonggu-head p { margin: 0; color: var(--ink-soft); font-size: 15px; }
   .gg-note { font-size: 12.5px; color: var(--ink-faint); margin: 6px 0 22px; }
   .gg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; align-items: stretch; }
@@ -306,7 +374,7 @@
   .tag-result { margin: 10px 0 4px; padding: 14px 16px; background: var(--card, #fff); border: 1px solid var(--line-strong); border-left: 4px solid var(--green); border-radius: 12px; }
   .tag-result[hidden] { display: none; }
   .tag-result-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-  .tag-result-head h2 { font-family: 'Gowun Batang', serif; font-weight: 800; font-size: 19px; color: var(--green-deep); margin: 0; letter-spacing: -.01em; }
+  .tag-result-head h2 { font-family: 'Gowun Batang', serif; font-weight: 700; font-size: 21px; letter-spacing: -.01em; color: var(--green-deep); margin: 0; letter-spacing: -.01em; }
   .tag-result-sub { font-size: 12.5px; color: var(--ink-faint); margin: 4px 0 0; }
   .tag-clear { display: inline-flex; align-items: center; gap: 4px; flex: none; border: 1px solid var(--line-strong); background: transparent; color: var(--ink-soft); font-family: inherit; font-size: 12px; font-weight: 600; padding: 5px 10px; border-radius: 18px; cursor: pointer; transition: .13s; }
   .tag-clear:hover { border-color: var(--green); color: var(--green-deep); }
@@ -341,7 +409,7 @@
   .jjin.show { display: block; }
   .jjin-inner { padding: 22px 20px 10px; }
   .jjin-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
-  .jjin-head h2 { font-family: "Gowun Batang", serif; font-size: 21px; font-weight: 800; color: #B23A20; margin: 0; }
+  .jjin-head h2 { font-family: 'Gowun Batang', serif; font-size: 24px; font-weight: 700; letter-spacing: -.01em; color: #B23A20; margin: 0; }
   .jjin-sub { font-size: 13px; color: var(--ink-soft); }
 
   .ptr { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: center; height: 0; overflow: hidden; z-index: 55; pointer-events: none; }
@@ -351,7 +419,7 @@
 
   .tabs { position: sticky; top: 0; z-index: 40; background: var(--paper); border-bottom: 1px solid var(--line); display: flex; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 12px 20px; max-width: 1080px; margin: 0 auto; }
   .tabs::-webkit-scrollbar { display: none; }
-  .tab { flex: none; border: 1px solid var(--line-strong); background: var(--card); font-family: "Gowun Batang", serif; font-size: 14.5px; font-weight: 700; color: var(--ink-soft); padding: 9px 15px; cursor: pointer; border-radius: 11px; white-space: nowrap; display: inline-flex; align-items: center; gap: 5px; transition: .14s; }
+  .tab { flex: none; border: 1px solid var(--line-strong); background: var(--card); font-family: "Paperlogy", sans-serif; font-size: 14.5px; font-weight: 700; color: var(--ink-soft); padding: 9px 15px; cursor: pointer; border-radius: 11px; white-space: nowrap; display: inline-flex; align-items: center; gap: 5px; transition: .14s; }
   .tab:hover { border-color: var(--ink-faint); color: var(--ink); }
   .tab .tico { width: 15px; height: 15px; flex: none; }
   .tab[aria-selected="true"] { background: var(--green); border-color: var(--green); color: #fff; box-shadow: 0 2px 8px rgba(46,107,77,.25); }
@@ -446,6 +514,7 @@
     <button class="tab" type="button" data-tab="notice" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l4 4V6L6 10H4a1 1 0 0 0-1 1Z"/><path d="M15.5 8.5a4 4 0 0 1 0 7"/><path d="M18.5 6a7 7 0 0 1 0 12"/></svg>공지사항</button>
     <button class="tab" type="button" data-tab="tips" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>육아 꿀팁</button>
     <button class="tab tab-fav" type="button" data-tab="fav" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="currentColor"><path d="M12 20.5 3.8 12.3a5 5 0 0 1 7.1-7.05L12 6.35l1.1-1.1a5 5 0 0 1 7.1 7.05Z"/></svg>찜<span id="favTabCount" class="fav-tab-count" hidden></span></button>
+    <button class="tab tab-cp" type="button" data-tab="coupon" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2 2 0 0 0 0 6v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-6Z"/><path d="M13 5v2M13 11v2M13 17v2"/></svg>선착순 쿠폰</button>
   </nav>
 
   <div class="tab-panel active" id="panel-all">
@@ -471,6 +540,7 @@
       </div>
       <div class="grid" id="all-jjin-grid"></div>
     </section>
+
 
     <hr class="section-divider" style="margin:26px 20px;" />
 
@@ -571,6 +641,20 @@
     </section>
   </div>
 
+  <div class="tab-panel" id="panel-coupon">
+    <section class="wrap" style="padding:22px 20px 40px;">
+      <div class="featured-head" style="margin-bottom:4px;">
+        <span class="eyebrow" style="color:#B07A16;">🎟️ 선착순 쿠폰</span>
+        <span class="featured-sub">시간 맞춰 받아야 하는 쿠폰만 모았어요</span>
+      </div>
+      <p class="count" id="cp-count" style="margin:10px 0 10px;"></p>
+      <div class="cp-grid" id="cp-grid"></div>
+      <p id="cp-empty" style="display:none; text-align:center; color:var(--ink-faint); font-size:14px; padding:34px 10px; line-height:1.7;">
+        지금은 안내 중인 쿠폰이 없어요.<br>좋은 쿠폰이 열리면 여기에 올려드릴게요.
+      </p>
+    </section>
+  </div>
+
   <div class="tab-panel" id="panel-single">
     <section class="gonggu-band">
       <div class="wrap gonggu-inner">
@@ -613,6 +697,22 @@
         <p style="font-size:13px;color:var(--ink-soft);margin:0;">쇼핑하며 알아두면 좋은 육아 정보를 모았어요.</p>
       </div>
       <div id="tips-list" class="tips-list">
+        <a class="tip-row" href="https://bwlw.kr/tips/baram-hoe.html">
+          <div class="tip-thumb" style="background:linear-gradient(135deg,#FCEAE6,#F5D2C9)">🎪</div>
+          <div class="tip-body">
+            <div class="tip-cat">현명한 소비</div>
+            <div class="tip-title">박람회, 그 자리에서 계약하지 마세요</div>
+            <div class="tip-desc">명함만 받아 나와도 혜택은 그대로. 보험·성장앨범 주의점과 청약철회까지.</div>
+          </div>
+        </a>
+        <a class="tip-row" href="https://bwlw.kr/tips/yeoreum-aegi.html">
+          <div class="tip-thumb" style="background:linear-gradient(135deg,#E3F1FA,#C5E3F5)">☀️</div>
+          <div class="tip-body">
+            <div class="tip-cat">계절 관리</div>
+            <div class="tip-title">여름철 아기 관리, 월령마다 달라요</div>
+            <div class="tip-desc">선크림·모기기피제·물, 6개월 전후로 기준이 정반대예요.</div>
+          </div>
+        </a>
         <a class="tip-row" href="https://bwlw.kr/tips/gijeogwi-size.html">
           <div class="tip-thumb" style="background:linear-gradient(135deg,#FBE3DC,#F3C3B4)">🧷</div>
           <div class="tip-body">
@@ -627,6 +727,30 @@
             <div class="tip-cat">수유 가이드</div>
             <div class="tip-title">분유 단계, 언제 바꿀까?</div>
             <div class="tip-desc">1~4단계 월령 기준과 천천히 갈아타는 혼합 수유법까지 정리했어요.</div>
+          </div>
+        </a>
+        <a class="tip-row" href="https://bwlw.kr/tips/bunyu-galatagi.html">
+          <div class="tip-thumb" style="background:linear-gradient(135deg,#E4F4EA,#C9E8D5)">🔄</div>
+          <div class="tip-body">
+            <div class="tip-cat">수유 가이드</div>
+            <div class="tip-title">분유 갈아타기, 천천히가 정답</div>
+            <div class="tip-desc">브랜드 바꿀 때 7:3→5:5→3:7 혼합법과 계량스푼 주의점까지.</div>
+          </div>
+        </a>
+        <a class="tip-row" href="https://bwlw.kr/tips/chulsan-junbi.html">
+          <div class="tip-thumb" style="background:linear-gradient(135deg,#E6F3EC,#CDE8DA)">🍼</div>
+          <div class="tip-body">
+            <div class="tip-cat">출산 준비</div>
+            <div class="tip-title">출산 준비물, 다 사지 않아도 돼요</div>
+            <div class="tip-desc">꼭 필요한 것과 나중에 사도 되는 것, 사놓고 후회하는 품목까지.</div>
+          </div>
+        </a>
+        <a class="tip-row" href="https://bwlw.kr/tips/iyusik-allergy.html">
+          <div class="tip-thumb" style="background:linear-gradient(135deg,#FDF3DA,#F5E4B8)">🥣</div>
+          <div class="tip-body">
+            <div class="tip-cat">이유식</div>
+            <div class="tip-title">"달걀은 두 돌 지나서"는 옛날 얘기</div>
+            <div class="tip-desc">알레르기 유발 식품 도입 시기가 왜 바뀌었는지, 안전하게 시도하는 법.</div>
           </div>
         </a>
         <a class="tip-row" href="https://bwlw.kr/tips/mulhu-seongbun.html">
@@ -1106,7 +1230,19 @@
     Array.prototype.forEach.call(chips.children, function (c) {
       c.setAttribute("aria-pressed", c.dataset.id === state.platform ? "true" : "false");
     });
-    var list = sortDeals(DEALS.filter(matches));
+    // 검색어나 태그가 있으면 실시간 타임딜(PINNED)까지 함께 뒤져요.
+    // (평소엔 DEALS만 보여줘 실시간 타임딜이 여기에 중복으로 뜨지 않게 함)
+    var source = DEALS;
+    if (state.q || state.tag) {
+      var seen = {};
+      source = (window.PINNED || []).concat(DEALS).filter(function (d) {
+        var k = (d.buyurl || "") + "|" + (d.title || "");
+        if (seen[k]) return false;
+        seen[k] = true;
+        return true;
+      });
+    }
+    var list = sortDeals(source.filter(matches));
     syncTagView(list.length);
     grid.innerHTML = "";
     if (list.length === 0) {
@@ -1191,9 +1327,22 @@
   }
 
   var q = document.getElementById("q");
-  function doSearch() { state.q = q.value.trim(); state.page = 1; render(); }
-  q.addEventListener("input", doSearch);
-  document.getElementById("searchBtn").addEventListener("click", doSearch);
+  function doSearch(opts) {
+    state.q = q.value.trim();
+    state.page = 1;
+    render();
+    // 검색 결과는 '오늘의 할인딜' 탭의 그리드에 그려져요.
+    // 버튼/엔터로 검색하면 그 탭으로 넘어가 결과를 보여줍니다. (타이핑 중엔 그대로)
+    if (opts && opts.jump && state.q) {
+      var lt = document.querySelector('.tab[data-tab="live"]');
+      if (lt) lt.click();
+      var anchor = document.getElementById("deals");
+      if (anchor) anchor.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+  q.addEventListener("input", function () { doSearch(); });
+  q.addEventListener("keydown", function (e) { if (e.key === "Enter") doSearch({ jump: true }); });
+  document.getElementById("searchBtn").addEventListener("click", function () { doSearch({ jump: true }); });
   document.getElementById("sort").addEventListener("change", function (e) { state.sort = e.target.value; state.page = 1; render(); });
 
   var targets = {};
@@ -1467,6 +1616,7 @@
     }
     // 몰별 기획전 (최대 3개)
     renderAllEvents(window.EVENTS || []);
+
     startTimers();
   }
 
@@ -1949,7 +2099,7 @@
   (function () {
     var tabs = document.querySelectorAll(".tab");
     if (!tabs.length) return;
-    var map = { all: "panel-all", jjin: "panel-jjin", live: "panel-live", fav: "panel-fav", single: "panel-single", notice: "panel-notice", tips: "panel-tips" };
+    var map = { all: "panel-all", jjin: "panel-jjin", live: "panel-live", fav: "panel-fav", single: "panel-single", notice: "panel-notice", tips: "panel-tips", coupon: "panel-coupon" };
     tabs.forEach(function (t) {
       t.addEventListener("click", function () {
         var key = t.getAttribute("data-tab");
@@ -1960,6 +2110,7 @@
         });
         if (key === "all" && window.renderAll) window.renderAll();
         if (key === "fav" && window.renderFavorites) window.renderFavorites();
+        if (key === "coupon" && window.loadCoupons) window.loadCoupons();   // 탭 열 때 최신 상태로
       });
     });
     // 전체보기의 '더보기' 버튼 → 해당 탭으로 이동
@@ -2027,6 +2178,106 @@
       copyText(title + "\n" + url, "복사됐어요! 붙여넣기 하세요 🛒");
     };
   })();
+
+  // ── 💳 실시간 쿠폰 ──
+  function renderCoupons(list) {
+    var grid = document.getElementById("cp-grid");
+    var empty = document.getElementById("cp-empty");
+    var count = document.getElementById("cp-count");
+    if (!grid) return;
+
+    if (!list || !list.length) {
+      grid.innerHTML = "";
+      if (empty) empty.style.display = "";
+      if (count) count.textContent = "";
+      return;
+    }
+    if (empty) empty.style.display = "none";
+
+    var openCnt = list.filter(function (c) { return c.status === "open"; }).length;
+    if (count) count.textContent = "총 " + list.length + "개" + (openCnt ? " · 지금 받을 수 있는 쿠폰 " + openCnt + "개" : "");
+
+    var stateText = { open: "🟢 오픈 중", soon: "🟡 곧 열려요", upcoming: "⚪ 예정" };
+    grid.innerHTML = list.map(function (c) {
+      return '<a class="cp-card" href="' + escAttr(c.url) + '" target="_blank" rel="nofollow sponsored noopener">' +
+        '<div class="cp-top">' +
+          '<span class="cp-state ' + c.status + '">' + stateText[c.status] + '</span>' +
+          '<span class="cp-time">' + escHtml(c.openText) + '</span>' +
+        '</div>' +
+        '<div class="cp-name">' + escHtml(c.name) + '</div>' +
+        (c.info ? '<div class="cp-info">' + escHtml(c.info) + '</div>' : '') +
+        '<div class="cp-go">쿠폰 받으러 가기 →</div>' +
+      '</a>';
+    }).join("");
+  }
+
+  function loadCoupons() {
+    fetch("/.netlify/functions/coupons")
+      .then(function (r) { return r.json(); })
+      .then(function (j) { renderCoupons((j && j.coupons) || []); })
+      .catch(function () { renderCoupons([]); });   // 못 불러오면 빈 안내 표시
+  }
+  window.loadCoupons = loadCoupons;
+  loadCoupons();                          // 첫 진입 시 한 번
+  setInterval(function () {               // 쿠폰 탭을 보고 있을 때만 갱신
+    var p = document.getElementById("panel-coupon");
+    if (p && p.classList.contains("active")) loadCoupons();
+  }, 60 * 1000);
+
+</script>
+
+<nav class="btmnav" id="btmnav">
+  <button type="button" data-go="all" class="on"><span class="dot"></span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg>홈</button>
+  <button type="button" data-go="jjin"><span class="dot"></span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12Z"/></svg>타임딜</button>
+  <button type="button" data-go="coupon"><span class="dot"></span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2 2 0 0 0 0 6v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-6Z"/><path d="M13 6v2M13 11v2M13 16v2"/></svg>쿠폰</button>
+  <button type="button" data-go="fav"><span class="dot"></span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5 3.8 12.3a5 5 0 0 1 7.1-7.05L12 6.35l1.1-1.1a5 5 0 0 1 7.1 7.05Z"/></svg>찜</button>
+  <button type="button" data-go="__more"><span class="dot"></span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>더보기</button>
+</nav>
+
+<div class="msheet-bg" id="msheetBg"></div>
+<div class="msheet" id="msheet">
+  <div class="handle"></div>
+  <h4>더 둘러보기</h4>
+  <button type="button" class="mrow" data-go="live"><span class="ic">🏷️</span>오늘의 할인딜</button>
+  <button type="button" class="mrow" data-go="single"><span class="ic">🎁</span>바이웰 단독</button>
+  <button type="button" class="mrow" data-go="tips"><span class="ic">📚</span>육아 꿀팁</button>
+  <button type="button" class="mrow" data-go="notice"><span class="ic">📢</span>공지사항</button>
+</div>
+
+<script>
+(function () {
+  var nav = document.getElementById("btmnav");
+  var sheet = document.getElementById("msheet");
+  var bg = document.getElementById("msheetBg");
+  if (!nav) return;
+  function closeSheet() { sheet.classList.remove("on"); bg.classList.remove("on"); }
+  function goTab(key) {
+    var btn = document.querySelector("[data-tab='" + key + "']");
+    if (btn) btn.click();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    nav.querySelectorAll("button").forEach(function (b) {
+      b.classList.toggle("on", b.getAttribute("data-go") === key);
+    });
+  }
+  nav.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    var key = b.getAttribute("data-go");
+    if (key === "__more") { sheet.classList.add("on"); bg.classList.add("on"); return; }
+    closeSheet(); goTab(key);
+  });
+  sheet.addEventListener("click", function (e) {
+    var b = e.target.closest(".mrow"); if (!b) return;
+    closeSheet(); goTab(b.getAttribute("data-go"));
+    nav.querySelectorAll("button").forEach(function (x) { x.classList.remove("on"); });
+    nav.querySelector("[data-go='__more']").classList.add("on");
+  });
+  bg.addEventListener("click", closeSheet);
+})();
 </script>
 </body>
 </html>

@@ -27,20 +27,13 @@
 }
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet" />
 <style>
-  @font-face {
-    font-family: 'NanumBarunpen';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumBarunpen.woff') format('woff');
-    font-weight: normal; font-display: swap;
-  }
-  @font-face {
-    font-family: 'NanumBarunpen';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/NanumBarunpenB.woff') format('woff');
-    font-weight: bold; font-display: swap;
-  }
+  /* 페이퍼로지 (SIL OFL · 상업적 웹 사용 가능) — 한글·영문·숫자 모두 지원 */
+  @font-face { font-family:'Paperlogy'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+  @font-face { font-family:'Paperlogy'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
+  @font-face { font-family:'Paperlogy'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2'); font-weight:800; font-display:swap; }
+</style>
+<style>
   :root {
     --paper: #F4FBFB;
     --ink: #23302F; --ink-soft: #566362; --ink-faint: #8DA0A0;
@@ -53,7 +46,7 @@
   * { box-sizing: border-box; }
   body {
     margin: 0; background: var(--paper); color: var(--ink);
-    font-family: "NanumBarunpen", system-ui, sans-serif; line-height: 1.8; font-size: 16.5px;
+    font-family: "Paperlogy", system-ui, sans-serif; line-height: 1.8; font-size: 16.5px;
     -webkit-font-smoothing: antialiased;
     background-image: radial-gradient(circle at 14% 6%, #DDF3F544 0 28%, transparent 28%), radial-gradient(circle at 86% 20%, #E2F6EA44 0 24%, transparent 24%);
     background-attachment: fixed;
@@ -61,19 +54,19 @@
   .wrap { max-width: 720px; margin: 0 auto; padding: 0 18px; }
 
   header.site { padding: 16px 0 6px; }
-  .logo-wm { font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 22px; color: var(--ink); text-decoration: none; }
+  .logo-wm { font-family: "Paperlogy", sans-serif; font-weight: 800; font-size: 22px; color: var(--ink); text-decoration: none; }
   .logo-wm b { color: var(--green); }
   nav.crumb { font-size: 12.5px; color: var(--ink-faint); margin-top: 10px; }
   nav.crumb a { color: var(--green-deep); text-decoration: none; }
 
   .hero { text-align: center; padding: 26px 0 10px; }
   .hero .kicker {
-    display: inline-block; font-family: "Baloo 2", sans-serif; font-weight: 700;
+    display: inline-block; font-family: "Paperlogy", sans-serif; font-weight: 700;
     font-size: 12.5px; letter-spacing: .04em; color: #2A96A4;
     background: var(--aqua-b); padding: 5px 14px; border-radius: 999px; margin-bottom: 16px;
   }
   h1 {
-    font-family: "Baloo 2", sans-serif; font-weight: 800;
+    font-family: "Paperlogy", sans-serif; font-weight: 800;
     font-size: clamp(26px, 6vw, 34px); line-height: 1.28; margin: 0 0 12px; color: var(--ink);
     letter-spacing: -.01em;
   }
@@ -83,7 +76,7 @@
 
   section { margin: 34px 0; }
   h2 {
-    font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 22px; color: var(--ink);
+    font-family: "Paperlogy", sans-serif; font-weight: 800; font-size: 22px; color: var(--ink);
     margin: 0 0 6px; display: flex; align-items: center; gap: 9px;
   }
   h2 .emoji { font-size: 22px; }
@@ -94,7 +87,7 @@
   .avoid h2 { color: #C7484A; }
   .ing { background: #fff; border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; }
   .ing:last-child { margin-bottom: 0; }
-  .ing .name { font-family: "Baloo 2", sans-serif; font-weight: 700; font-size: 15px; color: #C7484A; display: flex; align-items: center; gap: 7px; }
+  .ing .name { font-family: "Paperlogy", sans-serif; font-weight: 700; font-size: 15px; color: #C7484A; display: flex; align-items: center; gap: 7px; }
   .ing .name::before { content: "⚠️"; font-size: 14px; }
   .ing .why { font-size: 13.5px; color: var(--ink-soft); margin: 5px 0 0; }
 
@@ -103,11 +96,11 @@
   .step { display: flex; gap: 14px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 16px 18px; }
   .step .no {
     flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--aqua); color: #fff;
-    font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 15px;
+    font-family: "Paperlogy", sans-serif; font-weight: 800; font-size: 15px;
     display: flex; align-items: center; justify-content: center; line-height: 1;
   }
   .step .body { flex: 1; min-width: 0; }
-  .step .body h4 { margin: 2px 0 5px; font-family: "Baloo 2", sans-serif; font-weight: 700; font-size: 15.5px; color: var(--ink); }
+  .step .body h4 { margin: 2px 0 5px; font-family: "Paperlogy", sans-serif; font-weight: 700; font-size: 15.5px; color: var(--ink); }
   .step .body p { margin: 0; font-size: 14px; color: var(--ink-soft); line-height: 1.65; }
   .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
   .chips span { font-size: 12.5px; font-weight: 700; background: var(--coral-b); color: #C7484A; padding: 5px 11px; border-radius: 999px; }
@@ -117,7 +110,7 @@
   .certs { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
   .cert { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 16px; text-align: center; }
   .cert .ic { font-size: 26px; }
-  .cert .t { font-family: "Baloo 2", sans-serif; font-weight: 700; font-size: 15px; color: var(--green-deep); margin-top: 6px; }
+  .cert .t { font-family: "Paperlogy", sans-serif; font-weight: 700; font-size: 15px; color: var(--green-deep); margin-top: 6px; }
   .cert .d { font-size: 12.5px; color: var(--ink-soft); margin-top: 4px; line-height: 1.5; }
 
   /* 체크 목록 */
@@ -132,7 +125,7 @@
 
   /* 숫자 강조 (정제수) */
   .stat { display: flex; align-items: center; gap: 16px; background: var(--aqua-b); border-radius: 18px; padding: 18px 20px; margin: 16px 0; }
-  .stat .big { font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 34px; color: #2A96A4; line-height: 1; flex: none; }
+  .stat .big { font-family: "Paperlogy", sans-serif; font-weight: 800; font-size: 34px; color: #2A96A4; line-height: 1; flex: none; }
   .stat .desc { font-size: 13.5px; color: #3A6E72; }
 
   .tipbox { background: #EAF7F0; border-radius: 16px; padding: 15px 17px; margin: 18px 0; font-size: 14px; color: #2C5C43; }
@@ -143,42 +136,42 @@
   .compare .col { border-radius: 18px; padding: 18px; }
   .compare .col.emboss { background: var(--mint-b); }
   .compare .col.plain { background: var(--aqua-b); }
-  .compare .col h4 { margin: 0 0 8px; font-family: "Baloo 2", sans-serif; font-size: 15px; }
+  .compare .col h4 { margin: 0 0 8px; font-family: "Paperlogy", sans-serif; font-size: 15px; }
   .compare .col.emboss h4 { color: #3E7A55; }
   .compare .col.plain h4 { color: #2A96A4; }
   .compare .col p { margin: 0; font-size: 13px; color: var(--ink-soft); }
 
   .faq details { background: var(--card); border: 1px solid var(--line); border-radius: 16px; margin-bottom: 10px; overflow: hidden; }
-  .faq summary { cursor: pointer; padding: 15px 18px; font-family: "Baloo 2", sans-serif; font-weight: 700; font-size: 15px; color: var(--ink); list-style: none; display: flex; justify-content: space-between; align-items: center; }
+  .faq summary { cursor: pointer; padding: 15px 18px; font-family: "Paperlogy", sans-serif; font-weight: 700; font-size: 15px; color: var(--ink); list-style: none; display: flex; justify-content: space-between; align-items: center; }
   .faq summary::-webkit-details-marker { display: none; }
   .faq summary::after { content: "+"; color: var(--green); font-size: 20px; font-weight: 700; }
   .faq details[open] summary::after { content: "−"; }
   .faq .a { padding: 0 18px 16px; font-size: 14px; color: var(--ink-soft); }
 
   .cta { text-align: center; background: linear-gradient(135deg, #2E6B4D, #37835E); border-radius: 22px; padding: 30px 22px; margin: 36px 0 10px; }
-  .cta h3 { margin: 0 0 6px; font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 21px; color: #fff; }
+  .cta h3 { margin: 0 0 6px; font-family: "Paperlogy", sans-serif; font-weight: 800; font-size: 21px; color: #fff; }
   .cta p { margin: 0 0 18px; font-size: 14px; color: #DCEBE2; }
-  .cta a { display: inline-block; background: #fff; color: var(--green-deep); text-decoration: none; font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 15px; padding: 13px 26px; border-radius: 999px; }
+  .cta a { display: inline-block; background: #fff; color: var(--green-deep); text-decoration: none; font-family: "Paperlogy", sans-serif; font-weight: 800; font-size: 15px; padding: 13px 26px; border-radius: 999px; }
 
   .related { display: flex; align-items: center; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 15px 17px; margin: 20px 0; text-decoration: none; }
   .related .ico { font-size: 28px; flex: none; }
   .related .txt { flex: 1; }
-  .related .txt b { display: block; font-family: "Baloo 2", sans-serif; font-size: 15px; color: var(--ink); }
+  .related .txt b { display: block; font-family: "Paperlogy", sans-serif; font-size: 15px; color: var(--ink); }
   .related .txt span { font-size: 12.5px; color: var(--ink-faint); }
   .related .go { color: var(--green-deep); font-weight: 700; font-size: 18px; }
 
 
   .more-tips { margin: 30px 0 10px; }
-  .more-tips h3 { font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 17px; margin: 0 0 12px; color: var(--ink); }
+  .more-tips h3 { font-family: "Paperlogy", sans-serif; font-weight: 800; font-size: 17px; margin: 0 0 12px; color: var(--ink); }
   .more-tips a { display: flex; align-items: center; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 13px 15px; margin-bottom: 9px; text-decoration: none; transition: transform .12s, box-shadow .12s; }
   .more-tips a:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,.06); }
   .more-tips .ic { font-size: 24px; flex: none; }
   .more-tips .tx { flex: 1; }
-  .more-tips .tx b { display: block; font-family: "Baloo 2", sans-serif; font-size: 14.5px; color: var(--ink); }
+  .more-tips .tx b { display: block; font-family: "Paperlogy", sans-serif; font-size: 14.5px; color: var(--ink); }
   .more-tips .tx span { font-size: 12px; color: var(--ink-faint); }
   .more-tips .go { color: var(--green-deep); font-weight: 700; font-size: 17px; }
   .disclosure { font-size: 11.5px; color: var(--ink-faint); border-top: 1px solid var(--line); margin-top: 34px; padding-top: 16px; line-height: 1.6; }
-  .backlink { display: inline-block; margin-top: 16px; font-size: 13.5px; color: var(--green-deep); text-decoration: none; font-weight: 700; font-family: "Baloo 2", sans-serif; }
+  .backlink { display: inline-block; margin-top: 16px; font-size: 13.5px; color: var(--green-deep); text-decoration: none; font-weight: 700; font-family: "Paperlogy", sans-serif; }
 
   @media (max-width: 520px) { .compare { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

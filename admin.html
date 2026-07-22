@@ -132,6 +132,7 @@
         <label>상품 링크 (내 제휴 링크)</label>
         <input id="link" placeholder="https://link.coupang.com/..." />
       </div>
+
       <div class="full">
         <label>이미지 주소 (선택)</label>
         <div style="display:flex; gap:7px;">
@@ -453,7 +454,7 @@
     if (API_DEALS) return API_DEALS;
     // 시트 딜을 먼저(우선순위 높게), 그다음 API 딜 순으로 담음
     var urls = [
-      "/.netlify/functions/deals_sheet",   // 내가 직접 등록한 딜 (이미지 신뢰도 높음)
+      "/.netlify/functions/deals_sheet?all=1",   // 내가 등록한 딜 (종료된 것 포함 — 사진 재활용용)
       "/.netlify/functions/deals",
       "/.netlify/functions/deals_linkprice",
       "/.netlify/functions/deals_coupang"
@@ -655,7 +656,14 @@
     try {
       var dupRes = await fetch("/.netlify/functions/deals_sheet?all=1");
       var dupJson = await dupRes.json();
-      var existing = (dupJson && dupJson.deals) ? dupJson.deals : [];
+      var allDeals = (dupJson && dupJson.deals) ? dupJson.deals : [];
+
+      // 중복 경고는 '아직 안 끝난 딜'만 대상으로 해요.
+      // (종료된 과거 딜은 사진 재활용 때문에 시트에 남겨두지만, 중복으로 잡으면 안 됨)
+      var nowMs = Date.now();
+      var existing = allDeals.filter(function (x) {
+        return !x.endTs || x.endTs > nowMs;   // 종료시각이 없거나, 아직 안 지난 것만
+      });
 
       var linkHit = deal.link ? existing.find(function (x) { return x.buyurl && x.buyurl === deal.link; }) : null;
       if (linkHit) {
@@ -698,6 +706,21 @@
       });
       var j = await res.json();
       if (j && j.success) {
+        // 방금 등록한 딜을 목록에 바로 반영해요.
+        // (안 그러면 시트 반영 전까지 '같은 상품인데 사진이 안 뜨는' 일이 생겨요)
+        var justSaved = {
+          title: deal.title || "",
+          buyurl: deal.link || "",
+          photo: deal.photo || "",
+          now: Number(deal.price) || 0,
+          was: Number(deal.was) || 0,
+          mall: deal.mall || "etc"
+        };
+        if (justSaved.title) {
+          if (!Array.isArray(API_DEALS)) API_DEALS = [];
+          API_DEALS.unshift(justSaved);          // 맨 앞에 넣어 우선 매칭
+          SHEET_DEALS.unshift(justSaved);
+        }
         toast("등록 완료! 곧 홈페이지에 떠요 🎉");
         $("clearBtn").click();
       } else {
