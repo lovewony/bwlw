@@ -32,7 +32,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
 <style>
   /* 페이퍼로지 (SIL OFL · 상업적 웹 사용 가능) — 한글·영문·숫자 모두 지원 */
   @font-face { font-family:'Paperlogy'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
@@ -101,7 +101,7 @@
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
   body { margin: 0; font-family: "Paperlogy", system-ui, sans-serif; background: var(--paper); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-  .serif { font-family: "Paperlogy", sans-serif; }
+  .serif { font-family: 'Gowun Batang', serif; }
   a { color: inherit; text-decoration: none; }
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
 
@@ -112,7 +112,7 @@
   @media (max-width: 620px) { .disclosure-top p { white-space: normal; } }
   .disclosure-top b { font-weight: 600; color: var(--ink); }
 
-  .logo-wm { font-family: "Paperlogy", sans-serif; font-weight: 800; color: var(--ink); line-height: .9; letter-spacing: -.01em; }
+  .logo-wm { font-family: "Baloo 2", sans-serif; font-weight: 800; color: var(--ink); line-height: .9; letter-spacing: -.01em; }
   .logo-img { width: auto; display: inline-block; vertical-align: middle; }
   .brand { display: flex; flex-direction: column; gap: 3px; }
   .logo-row { display: flex; align-items: flex-end; gap: 2px; }
@@ -120,7 +120,16 @@
   .logo-leaf { width: 20px; height: 20px; margin-bottom: 5px; }
   .logo-tag { font-size: 10px; letter-spacing: .16em; color: var(--ink-faint); font-weight: 500; }
 
-  .all-sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+
+  /* 섹션 제목 안의 아이콘: 글자와 항상 가운데 정렬 */
+  .all-sec-head h2, .jjin-head h2, .events-head h2, .gonggu-head h2, .tag-result-head h2 {
+    display: flex; align-items: center; gap: 7px;
+  }
+  .all-sec-head h2 > svg, .jjin-head h2 > svg, .events-head h2 > svg,
+  .gonggu-head h2 > svg, .tag-result-head h2 > svg {
+    flex: none; vertical-align: middle; margin: 0;
+  }
+  .all-sec-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
   .all-sec-head h2 { font-family: 'Gowun Batang', serif; font-size: 23px; font-weight: 700; letter-spacing: -.01em; color: #B23A20; margin: 0; }
   .more-btn { flex: none; border: 1px solid #D8E6DD; background: #F1F7F3; font-family: inherit; font-size: 14px; font-weight: 700; color: var(--green-deep); cursor: pointer; padding: 8px 15px; border-radius: 999px; line-height: 1.2; white-space: nowrap; transition: background .15s, transform .12s; }
   .more-btn:hover { background: #E3F0E9; transform: translateY(-1px); }
@@ -178,7 +187,7 @@
   /* ── 큰 섹션 대제목만 고운바탕(명조), 나머지는 전부 페이퍼로지 ── */
   .featured-head .eyebrow,
   .gonggu-head .eyebrow { font-family: 'Gowun Batang', serif; }
-  .head-h { font-family: "Paperlogy", sans-serif; font-weight: 700; font-size: 23px; color: var(--ink); line-height: 1.2; }
+  .head-h { font-family: "Gowun Batang", serif; font-weight: 700; font-size: 23px; color: var(--ink); line-height: 1.2; text-shadow: 0 0 .35px currentColor; }
   .head-sub { font-size: 12.5px; color: var(--ink-soft); line-height: 1.4; }
   @media (max-width: 780px) {
     .head-left { flex-direction: column; align-items: flex-start; gap: 8px; }
@@ -268,6 +277,12 @@
   .grade-inline.good { background: #E4F1D8; color: #2E6B4D; }
   .grade-inline.gold { background: #FBF0CE; color: #9A6B0E; }
   .timer { position: absolute; bottom: 10px; right: 10px; background: rgba(31,28,22,.78); color: #fff; font-size: 12px; padding: 3px 8px; border-radius: 7px; font-variant-numeric: tabular-nums; }
+
+  /* 사진·제목을 눌러도 상품으로 이동 */
+  .thumb.clickable, .title.clickable { cursor: pointer; }
+  .thumb.clickable { transition: filter .15s; }
+  .deal:hover .thumb.clickable { filter: brightness(.97); }
+  .title.clickable:hover { text-decoration: underline; text-underline-offset: 2px; }
   .deal-body { padding: 14px 15px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1 1 auto; min-height: 0; }
   .mall { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-soft); }
   .mall .dot { width: 7px; height: 7px; border-radius: 50%; }
@@ -277,7 +292,7 @@
   .was { font-size: 13px; color: var(--ink-faint); text-decoration: line-through; }
   .save-row { display: flex; align-items: center; gap: 6px; width: 100%; }
   .save { display: inline-flex; align-items: center; height: 23px; box-sizing: border-box; font-size: 12px; color: var(--honey); background: var(--honey-wash); padding: 0 8px; border-radius: 7px; font-weight: 600; letter-spacing: -0.02em; white-space: nowrap; }
-  .disc-inline { display: inline-flex; align-items: center; gap: 3px; height: 23px; box-sizing: border-box; margin-left: auto; font-size: 12px; color: #B23A20; background: #FBE3DC; padding: 0 8px; border-radius: 7px; font-weight: 700; letter-spacing: -0.02em; white-space: nowrap; }
+  .disc-inline { display: inline-flex; align-items: center; gap: 3px; height: 23px; box-sizing: border-box; margin-left: auto; font-size: 12px; color: #B23A20; background: #FBE3DC; padding: 0 8px; border-radius: 7px; font-weight: 600; letter-spacing: -0.02em; white-space: nowrap; }
   .di-arrow { width: 11px; height: 11px; flex: none; }
   .card-info { display: flex; align-items: flex-start; gap: 5px; font-size: 12px; color: #3A5BC7; background: #EDF1FC; border: 1px solid #DCE4F7; padding: 5px 9px; border-radius: 8px; width: fit-content; line-height: 1.4; }
   .card-info span { font-weight: 600; }
@@ -508,9 +523,9 @@
 
   <nav class="tabs" aria-label="카테고리 탭">
     <button class="tab" type="button" data-tab="all" aria-selected="true"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>전체보기</button>
-    <button class="tab" type="button" data-tab="jjin" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>실시간 타임딜</button>
-    <button class="tab" type="button" data-tab="live" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg>오늘의 할인딜</button>
-    <button class="tab" type="button" data-tab="single" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7S9 2 6.5 4.5 12 7 12 7Z"/><path d="M12 7s3-5 5.5-2.5S12 7 12 7Z"/></svg>바이웰 단독</button>
+    <button class="tab" type="button" data-tab="jjin" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 10.6 3.3 2.2a1 1 0 1 1-1.1 1.7l-3.7-2.5a1 1 0 0 1-.5-.9V6.8a1 1 0 1 1 2 0Z"/></svg>실시간 타임딜</button>
+    <button class="tab" type="button" data-tab="live" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13.6 1.4a.9.9 0 0 1 .5 1l-1.3 7.1h5.5a.9.9 0 0 1 .7 1.5l-9.6 11.4a.9.9 0 0 1-1.6-.8l1.3-7.1H3.6a.9.9 0 0 1-.7-1.5l9.6-11.4a.9.9 0 0 1 1.1-.2Z"/></svg>오늘의 할인딜</button>
+    <button class="tab" type="button" data-tab="single" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12" rx="1.5"/><path d="M2.5 9h19"/><path d="M12 9v12"/><path d="M12 9c-3.2 0-5-1-5-2.6C7 5.1 8.1 4 9.4 4 11 4 12 6 12 9Z"/><path d="M12 9c3.2 0 5-1 5-2.6C17 5.1 15.9 4 14.6 4 13 4 12 6 12 9Z"/></svg>바이웰 단독</button>
     <button class="tab" type="button" data-tab="notice" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l4 4V6L6 10H4a1 1 0 0 0-1 1Z"/><path d="M15.5 8.5a4 4 0 0 1 0 7"/><path d="M18.5 6a7 7 0 0 1 0 12"/></svg>공지사항</button>
     <button class="tab" type="button" data-tab="tips" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>육아 꿀팁</button>
     <button class="tab tab-fav" type="button" data-tab="fav" aria-selected="false"><svg class="tico" viewBox="0 0 24 24" fill="currentColor"><path d="M12 20.5 3.8 12.3a5 5 0 0 1 7.1-7.05L12 6.35l1.1-1.1a5 5 0 0 1 7.1 7.05Z"/></svg>찜<span id="favTabCount" class="fav-tab-count" hidden></span></button>
@@ -535,7 +550,7 @@
     <div id="all-default">
     <section class="wrap" style="padding:22px 20px 6px;">
       <div class="all-sec-head">
-        <h2><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B23A20" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:4px;"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>실시간 타임딜</h2>
+        <h2><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" ><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 10.6 3.3 2.2a1 1 0 1 1-1.1 1.7l-3.7-2.5a1 1 0 0 1-.5-.9V6.8a1 1 0 1 1 2 0Z"/></svg>실시간 타임딜</h2>
         <button class="more-btn" type="button" data-goto="jjin">더보기 ›</button>
       </div>
       <div class="grid" id="all-jjin-grid"></div>
@@ -546,7 +561,7 @@
 
     <section class="wrap" style="padding:4px 20px 10px;">
       <div class="all-sec-head">
-        <h2><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B23A20" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:4px;"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg>오늘의 할인딜</h2>
+        <h2><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" ><path d="M13.6 1.4a.9.9 0 0 1 .5 1l-1.3 7.1h5.5a.9.9 0 0 1 .7 1.5l-9.6 11.4a.9.9 0 0 1-1.6-.8l1.3-7.1H3.6a.9.9 0 0 1-.7-1.5l9.6-11.4a.9.9 0 0 1 1.1-.2Z"/></svg>오늘의 할인딜</h2>
         <button class="more-btn" type="button" data-goto="live">더보기 ›</button>
       </div>
       <div class="grid" id="all-live-grid"></div>
@@ -556,7 +571,7 @@
 
     <section class="wrap" style="padding:4px 20px 10px;">
       <div class="all-sec-head">
-        <h2><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:4px;"><path d="M20 12v9H4v-9"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7S9 2 6.5 4.5 12 7 12 7Z"/><path d="M12 7s3-5 5.5-2.5S12 7 12 7Z"/></svg>바이웰 단독딜</h2>
+        <h2><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" ><path d="M11 10H2.6a.6.6 0 0 1-.6-.6V7.6c0-.4.3-.6.6-.6H11Zm2 0h8.4a.6.6 0 0 0 .6-.6V7.6a.6.6 0 0 0-.6-.6H13Zm-2 2H4v9.4c0 .3.3.6.6.6H11Zm2 0h7v9.4a.6.6 0 0 1-.6.6H13ZM9.4 2C7.8 2 6.5 3.2 6.5 4.7 6.5 6.1 8 7 11 7 11 4.2 10.4 2 9.4 2Zm5.2 0c1.6 0 2.9 1.2 2.9 2.7C17.5 6.1 16 7 13 7c0-2.8.6-5 1.6-5Z"/></svg>바이웰 단독딜</h2>
         <button class="more-btn" type="button" data-goto="single">더보기 ›</button>
       </div>
       <div class="gg-grid" id="all-single-grid"></div>
@@ -566,7 +581,7 @@
 
     <section class="wrap" id="all-events-section" style="padding:4px 20px 14px; display:none;">
       <div class="all-sec-head">
-        <h2><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--honey)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:4px;"><path d="M4 21V8h16v13"/><path d="M2 8l2-5h16l2 5"/><path d="M9 21v-6h6v6"/></svg>몰별 기획전</h2>
+        <h2><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" ><path d="M3.4 3h17.2a.8.8 0 0 1 .8.6l1.1 4a3.4 3.4 0 0 1-3.3 4.3 3.4 3.4 0 0 1-2.6-1.2 3.4 3.4 0 0 1-5.2 0 3.4 3.4 0 0 1-5.2 0A3.4 3.4 0 0 1 .5 7.6l1.1-4a.8.8 0 0 1 .8-.6ZM4 13.2V21c0 .4.3.7.7.7H9v-5.2h6v5.2h4.3c.4 0 .7-.3.7-.7v-7.8a5 5 0 0 1-3.9-.6 5 5 0 0 1-5.2 0 5 5 0 0 1-5.2 0 5 5 0 0 1-1.7.6Z"/></svg>몰별 기획전</h2>
       </div>
       <div class="ev-grid" id="all-ev-grid"></div>
     </section>
@@ -577,7 +592,7 @@
     <section class="jjin show" id="jjin">
       <div class="wrap jjin-inner">
         <div class="jjin-head">
-          <h2><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B23A20" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:4px;"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>오늘도 바이웰 - 실시간 타임딜</h2>
+          <h2><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 10.6 3.3 2.2a1 1 0 1 1-1.1 1.7l-3.7-2.5a1 1 0 0 1-.5-.9V6.8a1 1 0 1 1 2 0Z"/></svg>오늘도 바이웰 - 실시간 타임딜</h2>
           <span class="jjin-sub">지금 이 시간, 놓치면 아까운 딜이에요</span>
         </div>
         <p class="notice-inline"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="flex:none;"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>타임딜은 재고 소진 등의 사정으로 조기 종료될 수 있어요.</p>
@@ -1108,12 +1123,12 @@
       '<svg viewBox="0 0 24 24"><path class="heart" d="M12 20.5 3.8 12.3a5 5 0 0 1 7.1-7.05L12 6.35l1.1-1.1a5 5 0 0 1 7.1 7.05Z"/></svg>' +
       '</button>';
     el.innerHTML =
-      '<div class="thumb" style="background:' + hexWash(p.color) + '">' +
+      '<div class="thumb clickable" data-go="' + escAttr(href) + '" style="background:' + hexWash(p.color) + '">' +
         '<div class="badge-col">' + gradeBadge(d) + '</div>' + favHtml + thumbInner(d) + endHtml +
       '</div>' +
       '<div class="deal-body">' +
         '<span class="mall">' + pBadge(p, 16) + p.name + '</span>' +
-        '<h3 class="title">' + d.title + '</h3>' +
+        '<h3 class="title clickable" data-go="' + escAttr(href) + '">' + d.title + '</h3>' +
         '<div class="prices"><span class="now">' + won(d.now) + (d.hasOptions ? '~' : '') + '</span>' + (d.was > d.now ? '<span class="was">' + won(d.was) + '</span>' : '') + '</div>' +
         '<div class="meta-row">' +
           ((saveHtml || discHtml) ? '<div class="save-row">' + saveHtml + discHtml + '</div>' : '') +
@@ -1450,7 +1465,10 @@
         '<span class="ev-dday' + (dd.u ? " urgent" : "") + '">' + dd.t + '</span></div>' +
         '<h3 class="ev-name">' + escHtml(e.name) + '</h3>' +
         (e.info ? '<span class="ev-period">' + escHtml(e.info) + '</span>' : '') +
-        '<a class="ev-btn" href="' + escHtml(e.url || "#") + '" target="_blank" rel="noopener">행사 보러가기</a>' +
+        // 링크가 없으면 버튼을 아예 숨겨요. (예전엔 '#'로 걸려서 눌러도 맨 위로만 튀었어요)
+        ((e.url && e.url !== "#")
+          ? '<a class="ev-btn" href="' + escHtml(e.url) + '" target="_blank" rel="nofollow sponsored noopener">행사 보러가기</a>'
+          : '') +
       '</div>';
     return el;
   }
@@ -1491,7 +1509,7 @@
     el.innerHTML =
       '<div class="gg-top">' +
         '<span class="gg-tag">' + esc(s.type || "공동구매") + '</span>' +
-        '<span class="gg-dday"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>진행 중</span>' +
+        '<span class="gg-dday"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 10.6 3.3 2.2a1 1 0 1 1-1.1 1.7l-3.7-2.5a1 1 0 0 1-.5-.9V6.8a1 1 0 1 1 2 0Z"/></svg>진행 중</span>' +
       '</div>' +
       '<h3 class="gg-title">' + esc(s.name) + '</h3>' +
       (s.period ? '<p style="font-size:13px; color:var(--ink-soft); margin:0;">진행 기간 · ' + esc(s.period) + '</p>' : '') +
@@ -1860,7 +1878,7 @@
   (function () {
     var el = document.getElementById("gg-dday-1");
     if (!el) return;
-    var icon = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+    var icon = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 10.6 3.3 2.2a1 1 0 1 1-1.1 1.7l-3.7-2.5a1 1 0 0 1-.5-.9V6.8a1 1 0 1 1 2 0Z"/></svg>';
     var end = new Date(2026, 6, 8, 23, 59, 59);
     var ms = end - new Date();
     if (ms <= 0) { el.innerHTML = icon + "마감"; el.classList.add("urgent"); return; }
@@ -2278,6 +2296,17 @@
   });
   bg.addEventListener("click", closeSheet);
 })();
+
+  // 🖱️ 딜 사진·제목을 눌러도 상품 페이지로 이동 (하트·버튼은 제외)
+  document.addEventListener("click", function (e) {
+    if (e.target.closest(".fav-btn, .btn-row, a, button")) return;   // 기존 버튼들은 그대로 동작
+    var hit = e.target.closest(".clickable[data-go]");
+    if (!hit) return;
+    var url = hit.getAttribute("data-go");
+    if (!url || url === "#") return;
+    window.open(url, "_blank", "noopener");
+  });
+
 </script>
 </body>
 </html>
